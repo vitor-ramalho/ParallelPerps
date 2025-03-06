@@ -1,0 +1,957 @@
+{
+  "address": "0x1BA6f7342A6CAc6B7fDF2c96db455F113baE9c6E",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "fundingRate",
+          "type": "int256"
+        }
+      ],
+      "name": "FundingRateUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "baseToken",
+          "type": "address"
+        }
+      ],
+      "name": "MarketCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "trader",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "pnl",
+          "type": "uint256"
+        }
+      ],
+      "name": "PositionClosed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "trader",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "deficit",
+          "type": "uint256"
+        }
+      ],
+      "name": "PositionLiquidated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "trader",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "size",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "margin",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isLong",
+          "type": "bool"
+        }
+      ],
+      "name": "PositionOpened",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "closePosition",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "collateralBalances",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_baseToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxLeverage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maintenanceMargin",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_liquidationFee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_fundingRateMultiplier",
+          "type": "uint256"
+        }
+      ],
+      "name": "createMarket",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "depositCollateral",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllMarkets",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "marketId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "baseToken",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maintenanceMargin",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "liquidationFee",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "fundingRateMultiplier",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastFundingTime",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "cumulativeFundingRate",
+              "type": "int256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "openInterestLong",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "openInterestShort",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct PerpetualTrading.Market[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "insuranceFund",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_trader",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "liquidatePosition",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "marketIds",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "markets",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "baseToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxLeverage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maintenanceMargin",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidationFee",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fundingRateMultiplier",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastFundingTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "int256",
+          "name": "cumulativeFundingRate",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "openInterestLong",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "openInterestShort",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isActive",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_marketId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_margin",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_leverage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isLong",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "name": "openPosition",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "positions",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "size",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "margin",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "entryPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "int256",
+          "name": "entryFundingRate",
+          "type": "int256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isLong",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastUpdateTime",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "price",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawCollateral",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x8dc088e7a46489918a1ed5df4c2a446c934291cceba30723b1ebb4fa98a77899",
+  "receipt": {
+    "to": null,
+    "from": "0x5E729a4F664abf7045466f12039a513DE9572E17",
+    "contractAddress": "0x1BA6f7342A6CAc6B7fDF2c96db455F113baE9c6E",
+    "transactionIndex": 8,
+    "gasUsed": "1258389",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000020000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000400000000000000000000200000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002020000000000000000000000000000000000000000000002000000000000000000000",
+    "blockHash": "0x29608dab5e4c7bcce6f7d3fb6d220b43d04ba24d0d01285a3bd4cfadd637967d",
+    "transactionHash": "0x8dc088e7a46489918a1ed5df4c2a446c934291cceba30723b1ebb4fa98a77899",
+    "logs": [
+      {
+        "transactionIndex": 8,
+        "blockNumber": 6376522,
+        "transactionHash": "0x8dc088e7a46489918a1ed5df4c2a446c934291cceba30723b1ebb4fa98a77899",
+        "address": "0x1BA6f7342A6CAc6B7fDF2c96db455F113baE9c6E",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x0000000000000000000000005e729a4f664abf7045466f12039a513de9572e17"
+        ],
+        "data": "0x",
+        "logIndex": 41,
+        "blockHash": "0x29608dab5e4c7bcce6f7d3fb6d220b43d04ba24d0d01285a3bd4cfadd637967d"
+      }
+    ],
+    "blockNumber": 6376522,
+    "cumulativeGasUsed": "4408754",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 11,
+  "solcInputHash": "f2fcf1012019399a253bc1d06896d233",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReentrancyGuardReentrantCall\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"fundingRate\",\"type\":\"int256\"}],\"name\":\"FundingRateUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"}],\"name\":\"MarketCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"pnl\",\"type\":\"uint256\"}],\"name\":\"PositionClosed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deficit\",\"type\":\"uint256\"}],\"name\":\"PositionLiquidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trader\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"margin\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isLong\",\"type\":\"bool\"}],\"name\":\"PositionOpened\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"closePosition\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"collateralBalances\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"_baseToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maintenanceMargin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_liquidationFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_fundingRateMultiplier\",\"type\":\"uint256\"}],\"name\":\"createMarket\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"depositCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllMarkets\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maintenanceMargin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fundingRateMultiplier\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastFundingTime\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"cumulativeFundingRate\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"openInterestLong\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"openInterestShort\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"}],\"internalType\":\"struct PerpetualTrading.Market[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"insuranceFund\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_trader\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"_marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"liquidatePosition\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"marketIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"markets\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"marketId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"baseToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maintenanceMargin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"liquidationFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fundingRateMultiplier\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastFundingTime\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"cumulativeFundingRate\",\"type\":\"int256\"},{\"internalType\":\"uint256\",\"name\":\"openInterestLong\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"openInterestShort\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_marketId\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"_margin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_leverage\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_isLong\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"_price\",\"type\":\"uint256\"}],\"name\":\"openPosition\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"positions\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"margin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"entryFundingRate\",\"type\":\"int256\"},{\"internalType\":\"bool\",\"name\":\"isLong\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdateTime\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdrawCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}],\"ReentrancyGuardReentrantCall()\":[{\"details\":\"Unauthorized reentrant call.\"}]},\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/perps/PerpetualTrading.sol\":\"PerpetualTrading\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (utils/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n */\\nabstract contract ReentrancyGuard {\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant NOT_ENTERED = 1;\\n    uint256 private constant ENTERED = 2;\\n\\n    uint256 private _status;\\n\\n    /**\\n     * @dev Unauthorized reentrant call.\\n     */\\n    error ReentrancyGuardReentrantCall();\\n\\n    constructor() {\\n        _status = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be NOT_ENTERED\\n        if (_status == ENTERED) {\\n            revert ReentrancyGuardReentrantCall();\\n        }\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _status = ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _status = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Returns true if the reentrancy guard is currently set to \\\"entered\\\", which indicates there is a\\n     * `nonReentrant` function in the call stack.\\n     */\\n    function _reentrancyGuardEntered() internal view returns (bool) {\\n        return _status == ENTERED;\\n    }\\n}\\n\",\"keccak256\":\"0xf980daa263b661ab8ddee7d4fd833c7da7e7995e2c359ff1f17e67e4112f2236\",\"license\":\"MIT\"},\"contracts/perps/PerpetualTrading.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\\\";\\n\\ncontract PerpetualTrading is Ownable, ReentrancyGuard {\\n    // Market structure\\n    struct Market {\\n        bytes32 marketId;\\n        address baseToken;\\n        uint256 maxLeverage;\\n        uint256 maintenanceMargin;\\n        uint256 liquidationFee;\\n        uint256 fundingRateMultiplier;\\n        uint256 lastFundingTime;\\n        int256 cumulativeFundingRate;\\n        uint256 openInterestLong;\\n        uint256 openInterestShort;\\n        bool isActive;\\n    }\\n\\n    // Position structure\\n    struct Position {\\n        uint256 size;\\n        uint256 margin;\\n        uint256 entryPrice;\\n        int256 entryFundingRate;\\n        bool isLong;\\n        uint256 lastUpdateTime;\\n    }\\n\\n    // Mappings\\n    mapping(bytes32 => Market) public markets;\\n    mapping(address => mapping(bytes32 => Position)) public positions;\\n    mapping(address => uint256) public collateralBalances;\\n\\n    uint256 public price;\\n\\n    // Insurance fund\\n    uint256 public insuranceFund;\\n    bytes32[] public marketIds;\\n\\n    // Events\\n    event MarketCreated(bytes32 indexed marketId, address baseToken);\\n    event PositionOpened(address indexed trader, bytes32 indexed marketId, uint256 size, uint256 margin, bool isLong);\\n    event PositionClosed(address indexed trader, bytes32 indexed marketId, uint256 pnl);\\n    event PositionLiquidated(address indexed trader, bytes32 indexed marketId, uint256 deficit);\\n    event FundingRateUpdated(bytes32 indexed marketId, int256 fundingRate);\\n\\n    constructor() Ownable(msg.sender) {}\\n\\n    function createMarket(\\n        bytes32 _marketId,\\n        address _baseToken,\\n        uint256 _maxLeverage,\\n        uint256 _maintenanceMargin,\\n        uint256 _liquidationFee,\\n        uint256 _fundingRateMultiplier\\n    ) external onlyOwner {\\n        require(!markets[_marketId].isActive, \\\"Market already exists\\\");\\n\\n        markets[_marketId] = Market({\\n            marketId: _marketId,\\n            baseToken: _baseToken,\\n            maxLeverage: _maxLeverage,\\n            maintenanceMargin: _maintenanceMargin,\\n            liquidationFee: _liquidationFee,\\n            fundingRateMultiplier: _fundingRateMultiplier,\\n            lastFundingTime: block.timestamp,\\n            cumulativeFundingRate: 0,\\n            openInterestLong: 0,\\n            openInterestShort: 0,\\n            isActive: true\\n        });\\n\\n        emit MarketCreated(_marketId, _baseToken);\\n    }\\n\\n    function getAllMarkets() external view returns (Market[] memory) {\\n        uint256 marketCount = 0;\\n        for (uint256 i = 0; i < marketIds.length; i++) {\\n            if (markets[marketIds[i]].isActive) {\\n                marketCount++;\\n            }\\n        }\\n\\n        Market[] memory activeMarkets = new Market[](marketCount);\\n        uint256 index = 0;\\n        for (uint256 i = 0; i < marketIds.length; i++) {\\n            if (markets[marketIds[i]].isActive) {\\n                activeMarkets[index] = markets[marketIds[i]];\\n                index++;\\n            }\\n        }\\n\\n        return activeMarkets;\\n    }\\n\\n    function depositCollateral(uint256 _amount) external nonReentrant {\\n        IERC20(markets[bytes32(0)].baseToken).transferFrom(msg.sender, address(this), _amount);\\n        collateralBalances[msg.sender] += _amount;\\n    }\\n\\n    function withdrawCollateral(uint256 _amount) external nonReentrant {\\n        require(collateralBalances[msg.sender] >= _amount, \\\"Insufficient balance\\\");\\n\\n        // Check if withdrawal doesn't cause positions to be under-collateralized\\n        // Implementation needed\\n\\n        collateralBalances[msg.sender] -= _amount;\\n        IERC20(markets[bytes32(0)].baseToken).transfer(msg.sender, _amount);\\n    }\\n\\n    function openPosition(\\n        bytes32 _marketId,\\n        uint256 _margin,\\n        uint256 _leverage,\\n        bool _isLong,\\n        uint256 _price\\n    ) external nonReentrant {\\n        Market storage market = markets[_marketId];\\n        require(market.isActive, \\\"Market not active\\\");\\n        require(_leverage <= market.maxLeverage, \\\"Leverage too high\\\");\\n        require(collateralBalances[msg.sender] >= _margin, \\\"Insufficient collateral\\\");\\n\\n        // Update funding rate\\n        _updateFundingRate(_marketId);\\n\\n        // Calculate position size\\n        uint256 size = _margin * _leverage;\\n\\n        // Update position\\n        Position storage position = positions[msg.sender][_marketId];\\n\\n        // If position exists, close it first\\n        if (position.size > 0) {\\n            // Close existing position\\n            // Implementation needed\\n        }\\n\\n        // Create new position\\n        position.size = size;\\n        position.margin = _margin;\\n        position.entryPrice = _price;\\n        position.entryFundingRate = market.cumulativeFundingRate;\\n        position.isLong = _isLong;\\n        position.lastUpdateTime = block.timestamp;\\n\\n        // Update market open interest\\n        if (_isLong) {\\n            market.openInterestLong += size;\\n        } else {\\n            market.openInterestShort += size;\\n        }\\n\\n        // Reduce collateral balance\\n        collateralBalances[msg.sender] -= _margin;\\n\\n        emit PositionOpened(msg.sender, _marketId, size, _margin, _isLong);\\n    }\\n\\n    function closePosition(bytes32 _marketId, uint256 _price) external nonReentrant {\\n        Market storage market = markets[_marketId];\\n        Position storage position = positions[msg.sender][_marketId];\\n\\n        require(position.size > 0, \\\"No position to close\\\");\\n\\n        // Update funding rate\\n        _updateFundingRate(_marketId);\\n\\n        // Calculate PnL\\n        int256 pnl = _calculatePnL(position, _price, market.cumulativeFundingRate);\\n        uint256 marginToReturn = position.margin;\\n\\n        // Add PnL to margin (if positive) or deduct from margin (if negative)\\n        if (pnl > 0) {\\n            marginToReturn += uint256(pnl);\\n        } else if (pnl < 0 && uint256(-pnl) < marginToReturn) {\\n            marginToReturn -= uint256(-pnl);\\n        } else {\\n            marginToReturn = 0;\\n        }\\n\\n        // Update market open interest\\n        if (position.isLong) {\\n            market.openInterestLong -= position.size;\\n        } else {\\n            market.openInterestShort -= position.size;\\n        }\\n\\n        // Return remaining margin to collateral balance\\n        collateralBalances[msg.sender] += marginToReturn;\\n\\n        // Reset position\\n        delete positions[msg.sender][_marketId];\\n\\n        emit PositionClosed(msg.sender, _marketId, marginToReturn);\\n    }\\n\\n    function liquidatePosition(address _trader, bytes32 _marketId, uint256 _price) external nonReentrant {\\n        Market storage market = markets[_marketId];\\n        Position storage position = positions[_trader][_marketId];\\n\\n        require(position.size > 0, \\\"No position to liquidate\\\");\\n\\n        // Update funding rate\\n        _updateFundingRate(_marketId);\\n\\n        // Calculate PnL\\n        int256 pnl = _calculatePnL(position, _price, market.cumulativeFundingRate);\\n\\n        // Check if position is liquidatable\\n        uint256 currentMargin = pnl > 0\\n            ? position.margin + uint256(pnl)\\n            : (uint256(-pnl) >= position.margin ? 0 : position.margin - uint256(-pnl));\\n\\n        uint256 maintenanceAmount = (position.size * market.maintenanceMargin) / 10000; // Basis points\\n\\n        require(currentMargin < maintenanceAmount, \\\"Position not liquidatable\\\");\\n\\n        // Calculate liquidation fee\\n        uint256 liquidationFee = (position.size * market.liquidationFee) / 10000; // Basis points\\n\\n        // Calculate deficit\\n        uint256 deficit = 0;\\n        if (currentMargin < liquidationFee) {\\n            deficit = liquidationFee - currentMargin;\\n            // Use insurance fund to cover deficit\\n            if (insuranceFund >= deficit) {\\n                insuranceFund -= deficit;\\n            } else {\\n                // Socialize losses if insurance fund is insufficient\\n                // Implementation needed\\n            }\\n            currentMargin = 0;\\n        } else {\\n            currentMargin -= liquidationFee;\\n        }\\n\\n        // Pay liquidation fee to liquidator\\n        collateralBalances[msg.sender] += liquidationFee;\\n\\n        // Return remaining margin to trader\\n        if (currentMargin > 0) {\\n            collateralBalances[_trader] += currentMargin;\\n        }\\n\\n        // Update market open interest\\n        if (position.isLong) {\\n            market.openInterestLong -= position.size;\\n        } else {\\n            market.openInterestShort -= position.size;\\n        }\\n\\n        // Reset position\\n        delete positions[_trader][_marketId];\\n\\n        emit PositionLiquidated(_trader, _marketId, deficit);\\n    }\\n\\n    function _updateFundingRate(bytes32 _marketId) internal {\\n        Market storage market = markets[_marketId];\\n\\n        // Skip if last update was too recent\\n        if (block.timestamp - market.lastFundingTime < 1 hours) {\\n            return;\\n        }\\n\\n        // Calculate hours since last update\\n        uint256 hoursElapsed = (block.timestamp - market.lastFundingTime) / 1 hours;\\n\\n        // Calculate premium index based on open interest imbalance\\n        int256 premiumIndex = 0;\\n        if (market.openInterestLong > 0 || market.openInterestShort > 0) {\\n            premiumIndex = int256(\\n                ((int256(market.openInterestLong) - int256(market.openInterestShort)) *\\n                    int256(market.fundingRateMultiplier)) / int256(market.openInterestLong + market.openInterestShort)\\n            );\\n        }\\n\\n        // Update cumulative funding rate\\n        market.cumulativeFundingRate += premiumIndex * int256(hoursElapsed);\\n\\n        // Update last funding time\\n        market.lastFundingTime = block.timestamp;\\n\\n        emit FundingRateUpdated(_marketId, premiumIndex);\\n    }\\n\\n    function _calculatePnL(\\n        Position memory _position,\\n        uint256 _currentPrice,\\n        int256 _currentCumulativeFunding\\n    ) internal pure returns (int256) {\\n        // Calculate PnL from price movement\\n        int256 pricePnL;\\n        if (_position.isLong) {\\n            pricePnL = int256(((_currentPrice * _position.size) / _position.entryPrice) - _position.size);\\n        } else {\\n            pricePnL = int256(_position.size - ((_currentPrice * _position.size) / _position.entryPrice));\\n        }\\n\\n        // Calculate funding payment\\n        int256 fundingPayment = (int256(_position.size) * (_currentCumulativeFunding - _position.entryFundingRate)) /\\n            1e18;\\n\\n        // Longs pay funding when positive, shorts pay when negative\\n        if (_position.isLong) {\\n            return pricePnL - fundingPayment;\\n        } else {\\n            return pricePnL + fundingPayment;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x52b12da983a3d791c9cd0dc9dcd017a95c65a06bf54034186318fc119a899c69\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080806040523461007e5733156100685760008054336001600160a01b03198216811783556040519290916001600160a01b0316907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09080a3600180556114be90816100848239f35b631e4fbdf760e01b815260006004820152602490fd5b600080fdfe6040608081526004908136101561001557600080fd5b60009160e08335811c9081630ca07ff714610ea957816329bc969d14610e7357816334176a6d14610df65781636112fe2e14610d03578163715018a614610ca95781637564912b14610c00578163779a968314610bc4578163841fe8d4146109ca5781638da5cb5b146109a157816397dc0653146106f8578163a035b1fe146106d8578163b0772d0b146103ff57508063b7902303146103dc57838163bad4a01f1461031057508063dfeba59e1461015f5763f2fde38b146100d657600080fd5b3461015b57602036600319011261015b576100ef611041565b906100f86110a9565b6001600160a01b0391821692831561014557505082546001600160a01b0319811683178455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b51631e4fbdf760e01b8152908101849052602490fd5b8280fd5b503461015b578160031936011261015b5780359161017b6111a0565b8284526020906002825280852092338652600383528186208587528352818620938454156102d757907f3cdd314d9fe5c122cd7714cf373b0ccd6e83d7bc331305bc254af7315739e2639392916101d1876112c8565b6101ea60078201546024356101e5896111e3565b6113eb565b600187015489821315610297579061020191611193565b955b8083015460ff161561027f576008610220915492019182546111c3565b90555b3387528252808620610236858254611193565b905533865260038252808620858752825261027181872060056000918281558260018201558260028201558260038201558260048201550155565b519283523392a36001805580f35b6009610290915492019182546111c3565b9055610223565b898212806102c6575b156102bd576102b16102b79261123f565b906111c3565b95610203565b50508795610203565b50806102d18361123f565b106102a0565b5082606492519162461bcd60e51b835282015260146024820152734e6f20706f736974696f6e20746f20636c6f736560601b6044820152fd5b929050346103d857602091826003193601126103d3578035926103316111a0565b848052600281528285206001015483516323b872dd60e01b815233848201523060248201526044810186905295829187916064918391906001600160a01b03165af19485156103c957610393949561039c575b50338652528320918254611193565b90556001805580f35b6103bb90823d84116103c2575b6103b38183611108565b81019061117b565b5038610384565b503d6103a9565b83513d88823e3d90fd5b505050fd5b5050fd5b5050346103fb57816003193601126103fb576020906006549051908152f35b5080fd5b8483853461015b578260031936011261015b5791809181906007908154925b838110610689575061042f8561114f565b9461043c87519687611108565b80865261044b601f199161114f565b01845b81811061062b5750508391845b848110610516575050505050825192602080850191818652845180935281818701950193905b83821061048e5786860387f35b845180518752808401516001600160a01b0316878501528082015187830152606080820151908801526080808201519088015260a0808201519088015260c08082015190880152888101518988015261010080820151908801526101208082015190880152610140908101511515908701526101609095019493820193600190910190610481565b6105228198969861105c565b9054600391821b1c8952600290896020928084528c60ff938b600a948686838320015416610564575b505050505050505061055c9061112a565b96949661045b565b918161061d989694928a9d98969461057e61055c9c61105c565b905490851b1c81528589522093815197610597896110d5565b8554895260018601546001600160a01b031690890152840154908701528201546060860152898201546080860152600582015460a0860152600682015460c0860152888201549085015260088101546101008501526009810154610120850152015416151561014082015261060c828b611167565b52610617818a611167565b5061112a565b93908a80808c818b8e61054b565b6020908896985161063b816110d5565b898152828a818301528a898301528a60608301528a60808301528a60a08301528a60c08301528a8c8301528a6101008301528a6101208301528a610140830152828a0101520196949661044e565b6106958197959761105c565b90549060031b1c8752600260205260ff600a8689200154166106c3575b6106bb9061112a565b95939561041e565b946106d06106bb9161112a565b9590506106b2565b505050346103fb57816003193601126103fb576020906005549051908152f35b828585346103fb5760603660031901126103fb57610714611041565b90602435916107216111a0565b828452602090600282528285209060018060a01b0316928386526003835280862085875283528086209182541561095e5761075b866112c8565b61076f60078201546044356101e5866111e3565b8781131561092e57610785906001850154611193565b925b83988154996127109a8b61079f6003870154836111d0565b048710156108eb57908a9b6107dc7f96d219c7f403b78caa37811ff17f737a1a985a72a908a885180ced8ac36fa6069a9b9c9385880154906111d0565b04968290888110156108ce575050906107f860ff9392886111c3565b600654909790888082106108c75761080f916111c3565b6006555b61082887835b338152858c5220918254611193565b9055806108ab575b50820154161561089357600861084b915492019182546111c3565b90555b84875260038352808720868852835261088781882060056000918281558260018201558260028201558260038201558260048201550155565b51908152a36001805580f35b60096108a4915492019182546111c3565b905561084e565b898c528188526108bf868d20918254611193565b90558b610830565b5050610813565b60ff94939250876108e58a610828939b949b6111c3565b93610819565b855162461bcd60e51b8152808401899052601960248201527f506f736974696f6e206e6f74206c6971756964617461626c65000000000000006044820152606490fd5b6109378161123f565b600185015490811161094d575050865b92610787565b6102b16109599261123f565b610947565b815162461bcd60e51b8152808901859052601860248201527f4e6f20706f736974696f6e20746f206c697175696461746500000000000000006044820152606490fd5b505050346103fb57816003193601126103fb57905490516001600160a01b039091168152602090f35b5050903461015b5760a036600319011261015b5781359160243591604435926064359384151593848603610bc057610a006111a0565b868852602091600283528489209060ff600a8301541615610b895760028201548111610b5257338a5282845284868b205410610b0f57610a4990610a438a6112c8565b856111d0565b96338a5260038452858a20898b528452858a20888155856001820155608435600282015560078301546003820155610a8f828583019060ff801983541691151516179055565b600542910155600014610afa57600801610aaa878254611193565b90555b3388528152828720610ac08382546111c3565b905582519485528401528201527fa1564edf7686ff0dfdc610244abecf1e5d57052b1af6ac7116b66efa74a74fae60603392a36001805580f35b600901610b08878254611193565b9055610aad565b855162461bcd60e51b8152808401859052601760248201527f496e73756666696369656e7420636f6c6c61746572616c0000000000000000006044820152606490fd5b855162461bcd60e51b81528084018590526011602482015270098caeccae4c2ceca40e8dede40d0d2ced607b1b6044820152606490fd5b855162461bcd60e51b815280840185905260116024820152704d61726b6574206e6f742061637469766560781b6044820152606490fd5b8780fd5b50503461015b57602036600319011261015b573591600754831015610bfd5750610bef60209261105c565b91905490519160031b1c8152f35b80fd5b9192905034610ca5576020366003190112610ca5578061016094843581526002602052209081549360018060a01b036001840154169360028401549160038501549085015460058601549060068701549260078801549560088901549760ff600a60098c01549b0154169a81519c8d5260208d01528b015260608a0152608089015260a088015260c08701528501526101008401526101208301521515610140820152f35b8380fd5b8434610bfd5780600319360112610bfd57610cc26110a9565b80546001600160a01b03198116825581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b50503461015b5760209182600319360112610ca5578135610d226111a0565b338552828452808286205410610dbd578390338652838252828620610d488282546111c3565b905585805260028252604460018060a01b03600185892001541694878551968794859363a9059cbb60e01b8552339085015260248401525af1908115610db45750610d96575b826001805580f35b81610dac92903d106103c2576103b38183611108565b503880610d8e565b513d85823e3d90fd5b5091606492519162461bcd60e51b83528201526014602482015273496e73756666696369656e742062616c616e636560601b6044820152fd5b5050903461015b578060031936011261015b5760c09281906001600160a01b03610e1e611041565b1681526003602052818120602435825260205220805492600182015492600283015490600560ff60038601549486015416940154948151968752602087015285015260608401521515608083015260a0820152f35b50503461015b57602036600319011261015b5760209282916001600160a01b03610e9b611041565b168252845220549051908152f35b92905034610ca55760c0366003190112610ca5578135926024356001600160a01b03818116949185900361103d57610edf6110a9565b858752600260205260ff600a85892001541661100257859187918551948592610f07846110d5565b858452602084019089825288850160443581526060860160643581526080870191608435835260a088019460a435865260c08901964288528901978a89528d8b6101008c019b818d5261012081019d8e52610140019d60018f5281526002602052209c518d5560018d019151166bffffffffffffffffffffffff60a01b8254161790555160028b01555160038a0155519088015551600587015551600686015551600785015551600884015551600983015551151590600a0190610fd6919060ff801983541691151516179055565b5190815260207fbf1a941eb557cc315e2521786648ab4ded508c023dca8feb51ca802e150ed3b891a280f35b835162461bcd60e51b815260208184015260156024820152744d61726b657420616c72656164792065786973747360581b6044820152606490fd5b8680fd5b600435906001600160a01b038216820361105757565b600080fd5b6007548110156110935760076000527fa66cc928b5edb82af9bd49922954155ab7b0942694bea4ce44661d9a8736c6880190600090565b634e487b7160e01b600052603260045260246000fd5b6000546001600160a01b031633036110bd57565b60405163118cdaa760e01b8152336004820152602490fd5b610160810190811067ffffffffffffffff8211176110f257604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff8211176110f257604052565b60001981146111395760010190565b634e487b7160e01b600052601160045260246000fd5b67ffffffffffffffff81116110f25760051b60200190565b80518210156110935760209160051b010190565b90816020910312611057575180151581036110575790565b9190820180921161113957565b6002600154146111b1576002600155565b604051633ee5aeb560e01b8152600490fd5b9190820391821161113957565b8181029291811591840414171561113957565b9060405160c0810181811067ffffffffffffffff8211176110f25760405260a0600582948054845260018101546020850152600281015460408501526003810154606085015260ff600482015416151560808501520154910152565b600160ff1b81146111395760000390565b811561125a570490565b634e487b7160e01b600052601260045260246000fd5b8181039291600013801582851316918412161761113957565b818102929160008212600160ff1b82141661113957818405149015171561113957565b9190916000838201938412911290801582169115161761113957565b600081815260026020526040812060068101908154610e1090816112ec82426111c3565b106113e3576112fb90426111c3565b0483600883015480158015906113d6575b611360575b505091839161135260076113486020967f1adc13219d3b6ca7c94444de6965c992f54c39fafb0ee842b4589a36705b8b5f98611289565b92019182546112ac565b9055429055604051908152a2565b9091945061138a60098401546113846113798285611270565b600587015490611289565b92611193565b9182156113c257600160ff1b82146000198414166113ae5750059281611352611311565b634e487b7160e01b81526011600452602490fd5b634e487b7160e01b81526012600452602490fd5b506009840154151561130c565b505050505050565b611445670de0b6b3a76400009161143f6080820194855115156000146114645761142861141d611430928551906111d0565b604085015190611250565b8351906111c3565b955b6060835193015190611270565b90611289565b91519105901561145b5761145891611270565b90565b611458916112ac565b611482906102b1611477855180936111d0565b604086015190611250565b9561143256fea264697066735822122098071dcc80e642db3142d7cb7a41b8537b512dd132206302b53010d40713703164736f6c63430008140033",
+  "deployedBytecode": "0x6040608081526004908136101561001557600080fd5b60009160e08335811c9081630ca07ff714610ea957816329bc969d14610e7357816334176a6d14610df65781636112fe2e14610d03578163715018a614610ca95781637564912b14610c00578163779a968314610bc4578163841fe8d4146109ca5781638da5cb5b146109a157816397dc0653146106f8578163a035b1fe146106d8578163b0772d0b146103ff57508063b7902303146103dc57838163bad4a01f1461031057508063dfeba59e1461015f5763f2fde38b146100d657600080fd5b3461015b57602036600319011261015b576100ef611041565b906100f86110a9565b6001600160a01b0391821692831561014557505082546001600160a01b0319811683178455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b51631e4fbdf760e01b8152908101849052602490fd5b8280fd5b503461015b578160031936011261015b5780359161017b6111a0565b8284526020906002825280852092338652600383528186208587528352818620938454156102d757907f3cdd314d9fe5c122cd7714cf373b0ccd6e83d7bc331305bc254af7315739e2639392916101d1876112c8565b6101ea60078201546024356101e5896111e3565b6113eb565b600187015489821315610297579061020191611193565b955b8083015460ff161561027f576008610220915492019182546111c3565b90555b3387528252808620610236858254611193565b905533865260038252808620858752825261027181872060056000918281558260018201558260028201558260038201558260048201550155565b519283523392a36001805580f35b6009610290915492019182546111c3565b9055610223565b898212806102c6575b156102bd576102b16102b79261123f565b906111c3565b95610203565b50508795610203565b50806102d18361123f565b106102a0565b5082606492519162461bcd60e51b835282015260146024820152734e6f20706f736974696f6e20746f20636c6f736560601b6044820152fd5b929050346103d857602091826003193601126103d3578035926103316111a0565b848052600281528285206001015483516323b872dd60e01b815233848201523060248201526044810186905295829187916064918391906001600160a01b03165af19485156103c957610393949561039c575b50338652528320918254611193565b90556001805580f35b6103bb90823d84116103c2575b6103b38183611108565b81019061117b565b5038610384565b503d6103a9565b83513d88823e3d90fd5b505050fd5b5050fd5b5050346103fb57816003193601126103fb576020906006549051908152f35b5080fd5b8483853461015b578260031936011261015b5791809181906007908154925b838110610689575061042f8561114f565b9461043c87519687611108565b80865261044b601f199161114f565b01845b81811061062b5750508391845b848110610516575050505050825192602080850191818652845180935281818701950193905b83821061048e5786860387f35b845180518752808401516001600160a01b0316878501528082015187830152606080820151908801526080808201519088015260a0808201519088015260c08082015190880152888101518988015261010080820151908801526101208082015190880152610140908101511515908701526101609095019493820193600190910190610481565b6105228198969861105c565b9054600391821b1c8952600290896020928084528c60ff938b600a948686838320015416610564575b505050505050505061055c9061112a565b96949661045b565b918161061d989694928a9d98969461057e61055c9c61105c565b905490851b1c81528589522093815197610597896110d5565b8554895260018601546001600160a01b031690890152840154908701528201546060860152898201546080860152600582015460a0860152600682015460c0860152888201549085015260088101546101008501526009810154610120850152015416151561014082015261060c828b611167565b52610617818a611167565b5061112a565b93908a80808c818b8e61054b565b6020908896985161063b816110d5565b898152828a818301528a898301528a60608301528a60808301528a60a08301528a60c08301528a8c8301528a6101008301528a6101208301528a610140830152828a0101520196949661044e565b6106958197959761105c565b90549060031b1c8752600260205260ff600a8689200154166106c3575b6106bb9061112a565b95939561041e565b946106d06106bb9161112a565b9590506106b2565b505050346103fb57816003193601126103fb576020906005549051908152f35b828585346103fb5760603660031901126103fb57610714611041565b90602435916107216111a0565b828452602090600282528285209060018060a01b0316928386526003835280862085875283528086209182541561095e5761075b866112c8565b61076f60078201546044356101e5866111e3565b8781131561092e57610785906001850154611193565b925b83988154996127109a8b61079f6003870154836111d0565b048710156108eb57908a9b6107dc7f96d219c7f403b78caa37811ff17f737a1a985a72a908a885180ced8ac36fa6069a9b9c9385880154906111d0565b04968290888110156108ce575050906107f860ff9392886111c3565b600654909790888082106108c75761080f916111c3565b6006555b61082887835b338152858c5220918254611193565b9055806108ab575b50820154161561089357600861084b915492019182546111c3565b90555b84875260038352808720868852835261088781882060056000918281558260018201558260028201558260038201558260048201550155565b51908152a36001805580f35b60096108a4915492019182546111c3565b905561084e565b898c528188526108bf868d20918254611193565b90558b610830565b5050610813565b60ff94939250876108e58a610828939b949b6111c3565b93610819565b855162461bcd60e51b8152808401899052601960248201527f506f736974696f6e206e6f74206c6971756964617461626c65000000000000006044820152606490fd5b6109378161123f565b600185015490811161094d575050865b92610787565b6102b16109599261123f565b610947565b815162461bcd60e51b8152808901859052601860248201527f4e6f20706f736974696f6e20746f206c697175696461746500000000000000006044820152606490fd5b505050346103fb57816003193601126103fb57905490516001600160a01b039091168152602090f35b5050903461015b5760a036600319011261015b5781359160243591604435926064359384151593848603610bc057610a006111a0565b868852602091600283528489209060ff600a8301541615610b895760028201548111610b5257338a5282845284868b205410610b0f57610a4990610a438a6112c8565b856111d0565b96338a5260038452858a20898b528452858a20888155856001820155608435600282015560078301546003820155610a8f828583019060ff801983541691151516179055565b600542910155600014610afa57600801610aaa878254611193565b90555b3388528152828720610ac08382546111c3565b905582519485528401528201527fa1564edf7686ff0dfdc610244abecf1e5d57052b1af6ac7116b66efa74a74fae60603392a36001805580f35b600901610b08878254611193565b9055610aad565b855162461bcd60e51b8152808401859052601760248201527f496e73756666696369656e7420636f6c6c61746572616c0000000000000000006044820152606490fd5b855162461bcd60e51b81528084018590526011602482015270098caeccae4c2ceca40e8dede40d0d2ced607b1b6044820152606490fd5b855162461bcd60e51b815280840185905260116024820152704d61726b6574206e6f742061637469766560781b6044820152606490fd5b8780fd5b50503461015b57602036600319011261015b573591600754831015610bfd5750610bef60209261105c565b91905490519160031b1c8152f35b80fd5b9192905034610ca5576020366003190112610ca5578061016094843581526002602052209081549360018060a01b036001840154169360028401549160038501549085015460058601549060068701549260078801549560088901549760ff600a60098c01549b0154169a81519c8d5260208d01528b015260608a0152608089015260a088015260c08701528501526101008401526101208301521515610140820152f35b8380fd5b8434610bfd5780600319360112610bfd57610cc26110a9565b80546001600160a01b03198116825581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b50503461015b5760209182600319360112610ca5578135610d226111a0565b338552828452808286205410610dbd578390338652838252828620610d488282546111c3565b905585805260028252604460018060a01b03600185892001541694878551968794859363a9059cbb60e01b8552339085015260248401525af1908115610db45750610d96575b826001805580f35b81610dac92903d106103c2576103b38183611108565b503880610d8e565b513d85823e3d90fd5b5091606492519162461bcd60e51b83528201526014602482015273496e73756666696369656e742062616c616e636560601b6044820152fd5b5050903461015b578060031936011261015b5760c09281906001600160a01b03610e1e611041565b1681526003602052818120602435825260205220805492600182015492600283015490600560ff60038601549486015416940154948151968752602087015285015260608401521515608083015260a0820152f35b50503461015b57602036600319011261015b5760209282916001600160a01b03610e9b611041565b168252845220549051908152f35b92905034610ca55760c0366003190112610ca5578135926024356001600160a01b03818116949185900361103d57610edf6110a9565b858752600260205260ff600a85892001541661100257859187918551948592610f07846110d5565b858452602084019089825288850160443581526060860160643581526080870191608435835260a088019460a435865260c08901964288528901978a89528d8b6101008c019b818d5261012081019d8e52610140019d60018f5281526002602052209c518d5560018d019151166bffffffffffffffffffffffff60a01b8254161790555160028b01555160038a0155519088015551600587015551600686015551600785015551600884015551600983015551151590600a0190610fd6919060ff801983541691151516179055565b5190815260207fbf1a941eb557cc315e2521786648ab4ded508c023dca8feb51ca802e150ed3b891a280f35b835162461bcd60e51b815260208184015260156024820152744d61726b657420616c72656164792065786973747360581b6044820152606490fd5b8680fd5b600435906001600160a01b038216820361105757565b600080fd5b6007548110156110935760076000527fa66cc928b5edb82af9bd49922954155ab7b0942694bea4ce44661d9a8736c6880190600090565b634e487b7160e01b600052603260045260246000fd5b6000546001600160a01b031633036110bd57565b60405163118cdaa760e01b8152336004820152602490fd5b610160810190811067ffffffffffffffff8211176110f257604052565b634e487b7160e01b600052604160045260246000fd5b90601f8019910116810190811067ffffffffffffffff8211176110f257604052565b60001981146111395760010190565b634e487b7160e01b600052601160045260246000fd5b67ffffffffffffffff81116110f25760051b60200190565b80518210156110935760209160051b010190565b90816020910312611057575180151581036110575790565b9190820180921161113957565b6002600154146111b1576002600155565b604051633ee5aeb560e01b8152600490fd5b9190820391821161113957565b8181029291811591840414171561113957565b9060405160c0810181811067ffffffffffffffff8211176110f25760405260a0600582948054845260018101546020850152600281015460408501526003810154606085015260ff600482015416151560808501520154910152565b600160ff1b81146111395760000390565b811561125a570490565b634e487b7160e01b600052601260045260246000fd5b8181039291600013801582851316918412161761113957565b818102929160008212600160ff1b82141661113957818405149015171561113957565b9190916000838201938412911290801582169115161761113957565b600081815260026020526040812060068101908154610e1090816112ec82426111c3565b106113e3576112fb90426111c3565b0483600883015480158015906113d6575b611360575b505091839161135260076113486020967f1adc13219d3b6ca7c94444de6965c992f54c39fafb0ee842b4589a36705b8b5f98611289565b92019182546112ac565b9055429055604051908152a2565b9091945061138a60098401546113846113798285611270565b600587015490611289565b92611193565b9182156113c257600160ff1b82146000198414166113ae5750059281611352611311565b634e487b7160e01b81526011600452602490fd5b634e487b7160e01b81526012600452602490fd5b506009840154151561130c565b505050505050565b611445670de0b6b3a76400009161143f6080820194855115156000146114645761142861141d611430928551906111d0565b604085015190611250565b8351906111c3565b955b6060835193015190611270565b90611289565b91519105901561145b5761145891611270565b90565b611458916112ac565b611482906102b1611477855180936111d0565b604086015190611250565b9561143256fea264697066735822122098071dcc80e642db3142d7cb7a41b8537b512dd132206302b53010d40713703164736f6c63430008140033",
+  "devdoc": {
+    "errors": {
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ],
+      "ReentrancyGuardReentrantCall()": [
+        {
+          "details": "Unauthorized reentrant call."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 266,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "_status",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 374,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "markets",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_bytes32,t_struct(Market)356_storage)"
+      },
+      {
+        "astId": 381,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "positions",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_mapping(t_bytes32,t_struct(Position)369_storage))"
+      },
+      {
+        "astId": 385,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "collateralBalances",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 387,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "price",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 389,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "insuranceFund",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 392,
+        "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+        "label": "marketIds",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_array(t_bytes32)dyn_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_bytes32)dyn_storage": {
+        "base": "t_bytes32",
+        "encoding": "dynamic_array",
+        "label": "bytes32[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_int256": {
+        "encoding": "inplace",
+        "label": "int256",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_mapping(t_bytes32,t_struct(Position)369_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(bytes32 => struct PerpetualTrading.Position))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_bytes32,t_struct(Position)369_storage)"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_bytes32,t_struct(Market)356_storage)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => struct PerpetualTrading.Market)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Market)356_storage"
+      },
+      "t_mapping(t_bytes32,t_struct(Position)369_storage)": {
+        "encoding": "mapping",
+        "key": "t_bytes32",
+        "label": "mapping(bytes32 => struct PerpetualTrading.Position)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Position)369_storage"
+      },
+      "t_struct(Market)356_storage": {
+        "encoding": "inplace",
+        "label": "struct PerpetualTrading.Market",
+        "members": [
+          {
+            "astId": 335,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "marketId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 337,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "baseToken",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 339,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "maxLeverage",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 341,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "maintenanceMargin",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 343,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "liquidationFee",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 345,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "fundingRateMultiplier",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 347,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "lastFundingTime",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 349,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "cumulativeFundingRate",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_int256"
+          },
+          {
+            "astId": 351,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "openInterestLong",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 353,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "openInterestShort",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 355,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "isActive",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "352"
+      },
+      "t_struct(Position)369_storage": {
+        "encoding": "inplace",
+        "label": "struct PerpetualTrading.Position",
+        "members": [
+          {
+            "astId": 358,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "size",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 360,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "margin",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 362,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "entryPrice",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 364,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "entryFundingRate",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_int256"
+          },
+          {
+            "astId": 366,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "isLong",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_bool"
+          },
+          {
+            "astId": 368,
+            "contract": "contracts/perps/PerpetualTrading.sol:PerpetualTrading",
+            "label": "lastUpdateTime",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

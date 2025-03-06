@@ -1,0 +1,29 @@
+monad purple #846ff8
+Monad dark blue #200152
+Eletric Ice #61ecde
+Berry #a1055c
+wine #60014f
+purple light #bbafff
+purple light 50 #9f8dfe
+purple dark 25  #622ada
+purple dark 50 #3c1b85
+blue light 25 #9f90f9
+blue light 50 #8b74ff
+blue dark 25 #573afc
+blue dark 50 #1a0f63
+black: #010100
+black 80 #222322
+black 60 #4c4d4c
+black 40 #7b7b7a
+white #fefffe
+white 80 #f0f1f0
+white 60 #e3e2e3
+white 40 #d6d6d6
+grey #1e2936
+grey 80 #374050
+grey 60 #4b5563
+grey 40 #6b7280
+info #a1c3ff
+success #2da67b
+waning #fbc657
+error #f70e0e
