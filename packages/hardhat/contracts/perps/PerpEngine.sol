@@ -23,7 +23,8 @@ contract PerpEngine is Ownable, ReentrancyGuard {
     bool public emergencyMode;
     uint256 public insuranceFundBalance;
 
-    // Structs with improvements
+    mapping(address => mapping(address => uint256)) public collateralBalances;
+
     struct Position {
         bool isOpen;
         uint256 size; // Position size in USD (x10^18)
@@ -62,9 +63,6 @@ contract PerpEngine is Ownable, ReentrancyGuard {
     }
 
     // State Variables
-    address public hasMonCollateral;
-    address public orderBook;
-    IERC20 public hasMON;
     uint256 public minMargin;
     uint256 public protocolFeeShare;
     address public feeRecipient;
@@ -75,6 +73,7 @@ contract PerpEngine is Ownable, ReentrancyGuard {
     mapping(uint32 => FeeStructure) public marketFees;
     mapping(uint32 => bool) public marketPaused;
     uint32 public marketCount;
+
     // Events with improved details
     event PositionOpened(
         address indexed trader,
@@ -137,11 +136,6 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         _;
     }
 
-    modifier onlyOrderBook() {
-        require(msg.sender == orderBook, "Only orderbook can call");
-        _;
-    }
-
     modifier marketExists(uint32 marketIndex) {
         require(marketIndex < marketCount, "Market does not exist");
         require(markets[marketIndex].oracle != address(0), "Market not initialized");
@@ -153,21 +147,11 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         _;
     }
 
-    constructor(
-        address _hasMonCollateral,
-        address _hasMon,
-        address _feeRecipient,
-        uint256 _minMargin,
-        uint256 _protocolFeeShare
-    ) Ownable(msg.sender) {
-        require(_hasMonCollateral != address(0), "Invalid hasMonCollateral address");
-        require(_hasMon != address(0), "Invalid hasMon address");
+    constructor(address _feeRecipient, uint256 _minMargin, uint256 _protocolFeeShare) Ownable(msg.sender) {
         require(_feeRecipient != address(0), "Invalid fee recipient address");
         require(_minMargin > 0, "Invalid min margin");
         require(_protocolFeeShare <= BASIS_POINTS, "Invalid protocol fee share");
 
-        hasMonCollateral = _hasMonCollateral;
-        hasMON = IERC20(_hasMon);
         feeRecipient = _feeRecipient;
         minMargin = _minMargin;
         protocolFeeShare = _protocolFeeShare;
@@ -176,10 +160,50 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         marketCount = 0;
     }
 
-    function setOrderBook(address _orderBook) external onlyOwner {
-        require(_orderBook != address(0), "Invalid orderbook address");
-        orderBook = _orderBook;
-        emit OrderBookUpdated(orderBook);
+    // New function to add a market
+    function addMarket(
+        string memory symbol,
+        address oracle, // Switchboard aggregator address
+        uint256 maxLeverage,
+        uint256 liquidationThreshold,
+        uint256 fee,
+        uint256 fundingInterval,
+        int256 maxFundingRate,
+        uint256 maxPositionSize,
+        uint256 maxOpenInterest,
+        uint256 minInitialMargin
+    ) external onlyOwner {
+        markets[marketCount] = Market({
+            symbol: symbol,
+            oracle: oracle,
+            maxLeverage: maxLeverage,
+            liquidationThreshold: liquidationThreshold,
+            fee: fee,
+            openInterestLong: 0,
+            openInterestShort: 0,
+            cumulativeFunding: 0,
+            lastFundingTime: block.timestamp,
+            fundingInterval: fundingInterval,
+            maxFundingRate: maxFundingRate,
+            maxPositionSize: maxPositionSize,
+            maxOpenInterest: maxOpenInterest,
+            minInitialMargin: minInitialMargin,
+            isActive: true
+        });
+        emit MarketAdded(marketCount, symbol, oracle, maxLeverage, maxPositionSize);
+        marketCount++;
+    }
+
+    function depositCollateral(address token, uint256 amount) external nonReentrant {
+        require(amount > 0, "Amount must be > 0");
+        require(IERC20(token).transferFrom(msg.sender, address(this), amount), "Transfer failed");
+        collateralBalances[msg.sender][token] += amount;
+    }
+
+    function withdrawCollateral(address token, uint256 amount) external nonReentrant {
+        require(collateralBalances[msg.sender][token] >= amount, "Insufficient balance");
+        collateralBalances[msg.sender][token] -= amount;
+        require(IERC20(token).transfer(msg.sender, amount), "Transfer failed");
     }
 
     function _isValidPrice(uint256 price, uint256 currentPrice, uint256 maxSlippage) internal pure returns (bool) {
@@ -235,16 +259,9 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         uint32 leverage,
         bool isLong,
         uint256 price,
-        uint256 maxSlippage
-    )
-        external
-        onlyOrderBook
-        nonReentrant
-        marketExists(marketIndex)
-        marketActive(marketIndex)
-        notInEmergencyMode
-        returns (uint256)
-    {
+        uint256 maxSlippage,
+        address collateralToken
+    ) external nonReentrant marketExists(marketIndex) marketActive(marketIndex) notInEmergencyMode returns (uint256) {
         Market storage market = markets[marketIndex];
         uint256 currentPrice = _getOraclePrice(marketIndex);
 
@@ -254,6 +271,7 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         require(margin >= minMargin, "Below global minimum margin");
         require(leverage <= market.maxLeverage, "Leverage too high");
         require(_isValidPrice(price, currentPrice, maxSlippage), "Price exceeds slippage");
+        require(collateralBalances[msg.sender][collateralToken] >= margin, "Insufficient collateral");
 
         // Calculate position details
         uint256 size = margin * uint256(leverage);
@@ -268,8 +286,11 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         uint256 tradingFee = (size * fees.takerFee) / BASIS_POINTS;
         uint256 protocolFee = (tradingFee * fees.protocolShare) / BASIS_POINTS;
 
-        // Transfer fees and margin
-        require(hasMON.transferFrom(hasMonCollateral, address(this), margin + tradingFee), "Fee transfer failed");
+        // Deduct margin plus fee from the trader’s collateral balance
+        uint256 totalDebit = margin + tradingFee;
+
+        require(collateralBalances[msg.sender][collateralToken] >= totalDebit, "Insufficient collateral for fee");
+        collateralBalances[msg.sender][collateralToken] -= totalDebit;
 
         // Update funding before position creation
         _updateFunding(marketIndex);
@@ -303,15 +324,9 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         address trader,
         uint32 marketIndex,
         uint256 price,
-        uint256 maxSlippage
-    )
-        external
-        onlyOrderBook
-        nonReentrant
-        marketActive(marketIndex)
-        positionExists(trader, marketIndex)
-        returns (int256)
-    {
+        uint256 maxSlippage,
+        address collateralToken
+    ) external nonReentrant marketActive(marketIndex) positionExists(trader, marketIndex) returns (int256) {
         Position memory pos = positions[trader][marketIndex]; // Use memory instead of storage
         Market storage market = markets[marketIndex];
 
@@ -333,7 +348,7 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         }
 
         // Handle transfers
-        _handleClosingTransfers(returnAmount, trader);
+        collateralBalances[msg.sender][collateralToken] += returnAmount;
 
         // Close position
         delete positions[trader][marketIndex];
@@ -364,16 +379,10 @@ contract PerpEngine is Ownable, ReentrancyGuard {
         }
     }
 
-    function _handleClosingTransfers(uint256 amount, address trader) internal {
-        if (amount > 0) {
-            // Transfer remaining funds back to hasMonCollateral contract
-            require(hasMON.transfer(hasMonCollateral, amount), "Transfer to collateral failed");
-        }
-    }
-
     function liquidatePosition(
         address trader,
-        uint32 marketIndex
+        uint32 marketIndex,
+        address collateralToken
     ) external nonReentrant marketActive(marketIndex) positionExists(trader, marketIndex) returns (uint256) {
         Position storage position = positions[trader][marketIndex];
         Market storage market = markets[marketIndex];
@@ -417,16 +426,16 @@ contract PerpEngine is Ownable, ReentrancyGuard {
 
         // Transfer fees
         if (protocolShare > 0) {
-            require(hasMON.transfer(feeRecipient, protocolShare), "Protocol fee transfer failed");
+            collateralBalances[feeRecipient][collateralToken] += protocolShare;
         }
         if (liquidatorShare > 0) {
-            require(hasMON.transfer(msg.sender, liquidatorShare), "Liquidator fee transfer failed");
+            collateralBalances[trader][collateralToken] += liquidatorShare;
         }
 
         // Return remaining funds to trader
         uint256 returnAmount = remainingMargin - liquidationFee;
         if (returnAmount > 0) {
-            require(hasMON.transfer(hasMonCollateral, returnAmount), "Return transfer failed");
+            collateralBalances[trader][collateralToken] += returnAmount;
         }
 
         // Close position
@@ -438,7 +447,7 @@ contract PerpEngine is Ownable, ReentrancyGuard {
     }
 
     // Internal calculation functions
-    function _calculatePremium(uint256 marketPrice, Market storage market) internal view returns (int256) {
+    function _calculatePremium(Market storage market) internal view returns (int256) {
         if (market.openInterestShort == 0) return 0;
 
         // Calculate skew ratio between longs and shorts
@@ -614,7 +623,7 @@ contract PerpEngine is Ownable, ReentrancyGuard {
             ? ((market.openInterestLong + market.openInterestShort) * PRECISION) / market.maxOpenInterest
             : 0;
 
-        skewness = _calculatePremium(_getOraclePrice(marketIndex), market);
+        skewness = _calculatePremium(market);
         lastFundingTime = market.lastFundingTime;
 
         // Calculate current funding rate

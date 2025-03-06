@@ -1571,20 +1571,10 @@ const deployedContracts = {
       },
     },
     PerpEngine: {
-      address: "0xF081511501A964B69b0527fF1522d82CFAA6628c",
+      address: "0x7D1bf601aB6c904aF47eF23d44F7B1572e5EeaA6",
       abi: [
         {
           inputs: [
-            {
-              internalType: "address",
-              name: "_hasMonCollateral",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "_hasMon",
-              type: "address",
-            },
             {
               internalType: "address",
               name: "_feeRecipient",
@@ -1930,6 +1920,64 @@ const deployedContracts = {
           type: "event",
         },
         {
+          inputs: [
+            {
+              internalType: "string",
+              name: "symbol",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "oracle",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "maxLeverage",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "liquidationThreshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "fee",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "fundingInterval",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "maxFundingRate",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxPositionSize",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxOpenInterest",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "minInitialMargin",
+              type: "uint256",
+            },
+          ],
+          name: "addMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "addToInsuranceFund",
           outputs: [],
@@ -1958,6 +2006,11 @@ const deployedContracts = {
               name: "maxSlippage",
               type: "uint256",
             },
+            {
+              internalType: "address",
+              name: "collateralToken",
+              type: "address",
+            },
           ],
           name: "closePosition",
           outputs: [
@@ -1967,6 +2020,48 @@ const deployedContracts = {
               type: "int256",
             },
           ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "collateralBalances",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "depositCollateral",
+          outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -2175,32 +2270,6 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "hasMON",
-          outputs: [
-            {
-              internalType: "contract IERC20",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "hasMonCollateral",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "insuranceFundBalance",
           outputs: [
             {
@@ -2223,6 +2292,11 @@ const deployedContracts = {
               internalType: "uint32",
               name: "marketIndex",
               type: "uint32",
+            },
+            {
+              internalType: "address",
+              name: "collateralToken",
+              type: "address",
             },
           ],
           name: "liquidatePosition",
@@ -2441,6 +2515,11 @@ const deployedContracts = {
               name: "maxSlippage",
               type: "uint256",
             },
+            {
+              internalType: "address",
+              name: "collateralToken",
+              type: "address",
+            },
           ],
           name: "openPosition",
           outputs: [
@@ -2451,19 +2530,6 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "orderBook",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
           type: "function",
         },
         {
@@ -2580,19 +2646,6 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
-              name: "_orderBook",
-              type: "address",
-            },
-          ],
-          name: "setOrderBook",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
               name: "newOwner",
               type: "address",
             },
@@ -2618,6 +2671,24 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "withdrawCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "uint256",
               name: "amount",
               type: "uint256",
@@ -2631,6 +2702,781 @@ const deployedContracts = {
         {
           stateMutability: "payable",
           type: "receive",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+    PerpetualTrading: {
+      address: "0xfa7c59C6a48D469c9609049D6231dbAEf9E61524",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "pythContract",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ReentrancyGuardReentrantCall",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "int256",
+              name: "fundingRate",
+              type: "int256",
+            },
+          ],
+          name: "FundingRateUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "baseToken",
+              type: "address",
+            },
+          ],
+          name: "MarketCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "trader",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "pnl",
+              type: "uint256",
+            },
+          ],
+          name: "PositionClosed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "trader",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "deficit",
+              type: "uint256",
+            },
+          ],
+          name: "PositionLiquidated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "trader",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "size",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "margin",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "isLong",
+              type: "bool",
+            },
+          ],
+          name: "PositionOpened",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_marketId",
+              type: "bytes32",
+            },
+          ],
+          name: "closePosition",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "collateralBalances",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_marketId",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "_baseToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_maxLeverage",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_maintenanceMargin",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_liquidationFee",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_fundingRateMultiplier",
+              type: "uint256",
+            },
+          ],
+          name: "createMarket",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_amount",
+              type: "uint256",
+            },
+          ],
+          name: "depositCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes[]",
+              name: "priceUpdate",
+              type: "bytes[]",
+            },
+          ],
+          name: "exampleMethod",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "insuranceFund",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_trader",
+              type: "address",
+            },
+            {
+              internalType: "bytes32",
+              name: "_marketId",
+              type: "bytes32",
+            },
+          ],
+          name: "liquidatePosition",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "markets",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "baseToken",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "maxLeverage",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maintenanceMargin",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "liquidationFee",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "fundingRateMultiplier",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "lastFundingTime",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "cumulativeFundingRate",
+              type: "int256",
+            },
+            {
+              internalType: "uint256",
+              name: "openInterestLong",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "openInterestShort",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "isActive",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_marketId",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "_margin",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_leverage",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "_isLong",
+              type: "bool",
+            },
+          ],
+          name: "openPosition",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "oracle",
+          outputs: [
+            {
+              internalType: "contract IPriceOracle",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "positions",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "size",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "margin",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "entryPrice",
+              type: "uint256",
+            },
+            {
+              internalType: "int256",
+              name: "entryFundingRate",
+              type: "int256",
+            },
+            {
+              internalType: "bool",
+              name: "isLong",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "lastUpdateTime",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "price",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_amount",
+              type: "uint256",
+            },
+          ],
+          name: "withdrawCollateral",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner: "@openzeppelin/contracts/access/Ownable.sol",
+        renounceOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+        transferOwnership: "@openzeppelin/contracts/access/Ownable.sol",
+      },
+    },
+    SwitchboardOracle: {
+      address: "0x043FfBC09C1fae6cBfe207039dE14D97EaDffafF",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "feedAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "decimals",
+              type: "uint8",
+            },
+          ],
+          name: "PriceFeedSet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newThreshold",
+              type: "uint256",
+            },
+          ],
+          name: "StalePriceThresholdUpdated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "feedDecimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+          ],
+          name: "getPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "priceFeeds",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "marketId",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "feedAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint8",
+              name: "decimals",
+              type: "uint8",
+            },
+          ],
+          name: "setPriceFeed",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "newThreshold",
+              type: "uint256",
+            },
+          ],
+          name: "setStalePriceThreshold",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "stalePriceThreshold",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
       ],
       inheritedFunctions: {
