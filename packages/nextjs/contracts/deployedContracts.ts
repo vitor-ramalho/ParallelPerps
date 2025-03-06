@@ -2711,16 +2711,10 @@ const deployedContracts = {
       },
     },
     PerpetualTrading: {
-      address: "0xfa7c59C6a48D469c9609049D6231dbAEf9E61524",
+      address: "0x1BA6f7342A6CAc6B7fDF2c96db455F113baE9c6E",
       abi: [
         {
-          inputs: [
-            {
-              internalType: "address",
-              name: "pythContract",
-              type: "address",
-            },
-          ],
+          inputs: [],
           stateMutability: "nonpayable",
           type: "constructor",
         },
@@ -2902,6 +2896,11 @@ const deployedContracts = {
               name: "_marketId",
               type: "bytes32",
             },
+            {
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
           ],
           name: "closePosition",
           outputs: [],
@@ -2979,16 +2978,73 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
+          inputs: [],
+          name: "getAllMarkets",
+          outputs: [
             {
-              internalType: "bytes[]",
-              name: "priceUpdate",
-              type: "bytes[]",
+              components: [
+                {
+                  internalType: "bytes32",
+                  name: "marketId",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "address",
+                  name: "baseToken",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maxLeverage",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "maintenanceMargin",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "liquidationFee",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "fundingRateMultiplier",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "lastFundingTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "int256",
+                  name: "cumulativeFundingRate",
+                  type: "int256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "openInterestLong",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "openInterestShort",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bool",
+                  name: "isActive",
+                  type: "bool",
+                },
+              ],
+              internalType: "struct PerpetualTrading.Market[]",
+              name: "",
+              type: "tuple[]",
             },
           ],
-          name: "exampleMethod",
-          outputs: [],
-          stateMutability: "payable",
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -3016,10 +3072,34 @@ const deployedContracts = {
               name: "_marketId",
               type: "bytes32",
             },
+            {
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
           ],
           name: "liquidatePosition",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "marketIds",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -3113,23 +3193,15 @@ const deployedContracts = {
               name: "_isLong",
               type: "bool",
             },
+            {
+              internalType: "uint256",
+              name: "_price",
+              type: "uint256",
+            },
           ],
           name: "openPosition",
           outputs: [],
           stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "oracle",
-          outputs: [
-            {
-              internalType: "contract IPriceOracle",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
           type: "function",
         },
         {
