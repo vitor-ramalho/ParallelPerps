@@ -491,7 +491,7 @@ const deployedContracts = {
       },
     },
     HasMonCollateral: {
-      address: "0x4e9E588a27DE851947e3848C5764cb817f02aBD3",
+      address: "0x68fE8Dec08447C6740159C9a9aca72f833a89c2B",
       abi: [
         {
           inputs: [
@@ -500,41 +500,9 @@ const deployedContracts = {
               name: "_hasMON",
               type: "address",
             },
-            {
-              internalType: "address",
-              name: "_feeRecipient",
-              type: "address",
-            },
           ],
           stateMutability: "nonpayable",
           type: "constructor",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "target",
-              type: "address",
-            },
-          ],
-          name: "AddressEmptyCode",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "AddressInsufficientBalance",
-          type: "error",
-        },
-        {
-          inputs: [],
-          name: "FailedInnerCall",
-          type: "error",
         },
         {
           inputs: [
@@ -557,41 +525,6 @@ const deployedContracts = {
           ],
           name: "OwnableUnauthorizedAccount",
           type: "error",
-        },
-        {
-          inputs: [],
-          name: "ReentrancyGuardReentrantCall",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "token",
-              type: "address",
-            },
-          ],
-          name: "SafeERC20FailedOperation",
-          type: "error",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "CollateralAllocated",
-          type: "event",
         },
         {
           anonymous: false,
@@ -628,7 +561,7 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "CollateralReleased",
+          name: "CollateralWithdrawn",
           type: "event",
         },
         {
@@ -643,50 +576,17 @@ const deployedContracts = {
             {
               indexed: false,
               internalType: "uint256",
-              name: "amount",
+              name: "allowance",
               type: "uint256",
             },
-          ],
-          name: "CollateralWithdrawn",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "triggeredBy",
-              type: "address",
-            },
-          ],
-          name: "EmergencyModeEnabled",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
             {
               indexed: false,
               internalType: "uint256",
-              name: "amount",
+              name: "requiredAmount",
               type: "uint256",
             },
           ],
-          name: "FeesWithdrawn",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "newOrderBook",
-              type: "address",
-            },
-          ],
-          name: "OrderBookUpdated",
+          name: "ERC20InsufficientAllowance",
           type: "event",
         },
         {
@@ -712,66 +612,16 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
-              indexed: true,
-              internalType: "address",
-              name: "newPerpEngine",
-              type: "address",
-            },
-          ],
-          name: "PerpEngineUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-            {
               indexed: false,
-              internalType: "bool",
-              name: "status",
-              type: "bool",
+              internalType: "address",
+              name: "perpEngine",
+              type: "address",
             },
           ],
-          name: "WhitelistUpdated",
+          name: "PerpEngineSet",
           type: "event",
         },
         {
-          inputs: [],
-          name: "accumulatedFees",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "allocateCollateral",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
           inputs: [
             {
               internalType: "address",
@@ -779,7 +629,7 @@ const deployedContracts = {
               type: "address",
             },
           ],
-          name: "allocatedCollateral",
+          name: "collateralBalances",
           outputs: [
             {
               internalType: "uint256",
@@ -805,185 +655,10 @@ const deployedContracts = {
         },
         {
           inputs: [],
-          name: "emergencyMode",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "enableEmergencyMode",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "feeRecipient",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-          ],
-          name: "getAvailableCollateral",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-          ],
-          name: "getCollateralStatus",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "total",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "allocated",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "available",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "lastAction",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-          ],
-          name: "getMaxAllowedAllocation",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "maxAllowed",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "currentAllocated",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getSystemInfo",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "totalCollateralAmount",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "totalFeesAccumulated",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "isEmergencyMode",
-              type: "bool",
-            },
-            {
-              internalType: "address",
-              name: "engineAddress",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "bookAddress",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
           name: "hasMON",
           outputs: [
             {
               internalType: "contract IERC20",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "lastUpdateTime",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "orderBook",
-          outputs: [
-            {
-              internalType: "address",
               name: "",
               type: "address",
             },
@@ -1009,7 +684,7 @@ const deployedContracts = {
           name: "perpEngine",
           outputs: [
             {
-              internalType: "address",
+              internalType: "contract IPerpEngine",
               name: "",
               type: "address",
             },
@@ -1018,70 +693,8 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "processFee",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "pnl",
-              type: "int256",
-            },
-          ],
-          name: "releaseCollateral",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
           inputs: [],
           name: "renounceOwnership",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_feeRecipient",
-              type: "address",
-            },
-          ],
-          name: "setFeeRecipient",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_orderBook",
-              type: "address",
-            },
-          ],
-          name: "setOrderBook",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1100,19 +713,6 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [],
-          name: "totalCollateral",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
               internalType: "address",
@@ -1128,75 +728,12 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "address",
-              name: "user",
-              type: "address",
-            },
-            {
-              internalType: "bool",
-              name: "status",
-              type: "bool",
-            },
-          ],
-          name: "updateWhitelist",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "userCollateral",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "whitelist",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "uint256",
               name: "amount",
               type: "uint256",
             },
           ],
           name: "withdrawCollateral",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "withdrawFees",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -1571,24 +1108,14 @@ const deployedContracts = {
       },
     },
     PerpEngine: {
-      address: "0x7D1bf601aB6c904aF47eF23d44F7B1572e5EeaA6",
+      address: "0xCF61E50879a5a9a5434F8f380e9b9FB2813a7C49",
       abi: [
         {
           inputs: [
             {
               internalType: "address",
-              name: "_feeRecipient",
+              name: "_hasMonCollateral",
               type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "_minMargin",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_protocolFeeShare",
-              type: "uint256",
             },
           ],
           stateMutability: "nonpayable",
@@ -1617,133 +1144,22 @@ const deployedContracts = {
           type: "error",
         },
         {
-          inputs: [],
-          name: "ReentrancyGuardReentrantCall",
-          type: "error",
-        },
-        {
           anonymous: false,
           inputs: [
             {
               indexed: true,
               internalType: "address",
-              name: "triggeredBy",
+              name: "user",
               type: "address",
             },
             {
               indexed: false,
               internalType: "uint256",
-              name: "timestamp",
+              name: "newFundingRate",
               type: "uint256",
             },
           ],
-          name: "EmergencyModeEnabled",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              indexed: false,
-              internalType: "int256",
-              name: "fundingRate",
-              type: "int256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "openInterestLong",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "openInterestShort",
-              type: "uint256",
-            },
-          ],
-          name: "FundingUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "oldBalance",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "newBalance",
-              type: "uint256",
-            },
-          ],
-          name: "InsuranceFundUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "symbol",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "address",
-              name: "oracle",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "maxLeverage",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "maxPositionSize",
-              type: "uint256",
-            },
-          ],
-          name: "MarketAdded",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "isPaused",
-              type: "bool",
-            },
-          ],
-          name: "MarketPaused",
+          name: "FundingRateUpdated",
           type: "event",
         },
         {
@@ -1752,11 +1168,11 @@ const deployedContracts = {
             {
               indexed: true,
               internalType: "address",
-              name: "newOrderBook",
+              name: "user",
               type: "address",
             },
           ],
-          name: "OrderBookUpdated",
+          name: "Liquidated",
           type: "event",
         },
         {
@@ -1784,26 +1200,8 @@ const deployedContracts = {
             {
               indexed: true,
               internalType: "address",
-              name: "trader",
+              name: "user",
               type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "size",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "int256",
-              name: "pnl",
-              type: "int256",
             },
             {
               indexed: false,
@@ -1813,9 +1211,9 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "uint256",
-              name: "timestamp",
-              type: "uint256",
+              internalType: "int256",
+              name: "pnl",
+              type: "int256",
             },
           ],
           name: "PositionClosed",
@@ -1827,81 +1225,14 @@ const deployedContracts = {
             {
               indexed: true,
               internalType: "address",
-              name: "trader",
+              name: "user",
               type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
             },
             {
               indexed: false,
               internalType: "uint256",
               name: "size",
               type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "address",
-              name: "liquidator",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "int256",
-              name: "pnl",
-              type: "int256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "liquidationPrice",
-              type: "uint256",
-            },
-          ],
-          name: "PositionLiquidated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: true,
-              internalType: "address",
-              name: "trader",
-              type: "address",
-            },
-            {
-              indexed: true,
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "size",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "margin",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "isLong",
-              type: "bool",
-            },
-            {
-              indexed: false,
-              internalType: "uint32",
-              name: "leverage",
-              type: "uint32",
             },
             {
               indexed: false,
@@ -1911,9 +1242,9 @@ const deployedContracts = {
             },
             {
               indexed: false,
-              internalType: "uint256",
-              name: "timestamp",
-              type: "uint256",
+              internalType: "bool",
+              name: "isLong",
+              type: "bool",
             },
           ],
           name: "PositionOpened",
@@ -1922,196 +1253,25 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "string",
-              name: "symbol",
-              type: "string",
-            },
-            {
-              internalType: "address",
-              name: "oracle",
-              type: "address",
-            },
-            {
               internalType: "uint256",
-              name: "maxLeverage",
+              name: "exitPrice",
               type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "liquidationThreshold",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "fee",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "fundingInterval",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "maxFundingRate",
-              type: "int256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxPositionSize",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxOpenInterest",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "minInitialMargin",
-              type: "uint256",
-            },
-          ],
-          name: "addMarket",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "addToInsuranceFund",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "trader",
-              type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              internalType: "uint256",
-              name: "price",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxSlippage",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "collateralToken",
-              type: "address",
             },
           ],
           name: "closePosition",
-          outputs: [
-            {
-              internalType: "int256",
-              name: "",
-              type: "int256",
-            },
-          ],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "collateralBalances",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "token",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "depositCollateral",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
-          inputs: [],
-          name: "emergencyMode",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "enableEmergencyMode",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "feeRecipient",
-          outputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
               internalType: "address",
-              name: "trader",
+              name: "",
               type: "address",
             },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
           ],
-          name: "getHealthFactor",
+          name: "fundingRates",
           outputs: [
             {
               internalType: "uint256",
@@ -2123,68 +1283,13 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "getMarketStats",
+          inputs: [],
+          name: "hasMonCollateral",
           outputs: [
             {
-              internalType: "uint256",
-              name: "longOpenInterest",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "shortOpenInterest",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "utilizationRate",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "skewness",
-              type: "int256",
-            },
-            {
-              internalType: "uint256",
-              name: "lastFundingTime",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "currentFundingRate",
-              type: "int256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "getMarketUtilization",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "longUtil",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "shortUtil",
-              type: "uint256",
+              internalType: "contract IHasMonCollateral",
+              name: "",
+              type: "address",
             },
           ],
           stateMutability: "view",
@@ -2194,341 +1299,40 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "address",
-              name: "trader",
+              name: "user",
               type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "getPositionRisk",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "marginRatio",
-              type: "uint256",
             },
             {
               internalType: "uint256",
               name: "liquidationPrice",
               type: "uint256",
             },
-            {
-              internalType: "bool",
-              name: "isLiquidatable",
-              type: "bool",
-            },
-            {
-              internalType: "int256",
-              name: "unrealizedPnl",
-              type: "int256",
-            },
-            {
-              internalType: "int256",
-              name: "fundingPayment",
-              type: "int256",
-            },
           ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "trader",
-              type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "getPositionValue",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "hasProfit",
-              type: "bool",
-            },
-            {
-              internalType: "int256",
-              name: "fundingFee",
-              type: "int256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "insuranceFundBalance",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "trader",
-              type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              internalType: "address",
-              name: "collateralToken",
-              type: "address",
-            },
-          ],
-          name: "liquidatePosition",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
+          name: "liquidate",
+          outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
-          inputs: [],
-          name: "marketCount",
-          outputs: [
-            {
-              internalType: "uint32",
-              name: "",
-              type: "uint32",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
           inputs: [
             {
-              internalType: "uint32",
-              name: "",
-              type: "uint32",
-            },
-          ],
-          name: "marketFees",
-          outputs: [
-            {
               internalType: "uint256",
-              name: "makerFee",
+              name: "size",
               type: "uint256",
             },
             {
               internalType: "uint256",
-              name: "takerFee",
+              name: "entryPrice",
               type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "liquidationFee",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "protocolShare",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint32",
-              name: "",
-              type: "uint32",
-            },
-          ],
-          name: "marketPaused",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint32",
-              name: "",
-              type: "uint32",
-            },
-          ],
-          name: "markets",
-          outputs: [
-            {
-              internalType: "string",
-              name: "symbol",
-              type: "string",
-            },
-            {
-              internalType: "address",
-              name: "oracle",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "maxLeverage",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "liquidationThreshold",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "fee",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "openInterestLong",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "openInterestShort",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "cumulativeFunding",
-              type: "int256",
-            },
-            {
-              internalType: "uint256",
-              name: "lastFundingTime",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "fundingInterval",
-              type: "uint256",
-            },
-            {
-              internalType: "int256",
-              name: "maxFundingRate",
-              type: "int256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxPositionSize",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxOpenInterest",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "minInitialMargin",
-              type: "uint256",
-            },
-            {
-              internalType: "bool",
-              name: "isActive",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "minMargin",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "trader",
-              type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              internalType: "uint256",
-              name: "margin",
-              type: "uint256",
-            },
-            {
-              internalType: "uint32",
-              name: "leverage",
-              type: "uint32",
             },
             {
               internalType: "bool",
               name: "isLong",
               type: "bool",
             },
-            {
-              internalType: "uint256",
-              name: "price",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "maxSlippage",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "collateralToken",
-              type: "address",
-            },
           ],
           name: "openPosition",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
+          outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
@@ -2548,44 +1352,16 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "pauseMarket",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "address",
               name: "",
               type: "address",
-            },
-            {
-              internalType: "uint32",
-              name: "",
-              type: "uint32",
             },
           ],
           name: "positions",
           outputs: [
             {
-              internalType: "bool",
-              name: "isOpen",
-              type: "bool",
-            },
-            {
               internalType: "uint256",
               name: "size",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "margin",
               type: "uint256",
             },
             {
@@ -2594,42 +1370,9 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "int256",
-              name: "lastCumulativeFunding",
-              type: "int256",
-            },
-            {
               internalType: "bool",
               name: "isLong",
               type: "bool",
-            },
-            {
-              internalType: "uint32",
-              name: "leverage",
-              type: "uint32",
-            },
-            {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-            {
-              internalType: "uint256",
-              name: "lastUpdateTime",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "protocolFeeShare",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
             },
           ],
           stateMutability: "view",
@@ -2658,50 +1401,20 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint32",
-              name: "marketIndex",
-              type: "uint32",
-            },
-          ],
-          name: "unpauseMarket",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "address",
-              name: "token",
+              name: "user",
               type: "address",
             },
             {
               internalType: "uint256",
-              name: "amount",
+              name: "newFundingRate",
               type: "uint256",
             },
           ],
-          name: "withdrawCollateral",
+          name: "updateFundingRate",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "amount",
-              type: "uint256",
-            },
-          ],
-          name: "withdrawFromInsuranceFund",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          stateMutability: "payable",
-          type: "receive",
         },
       ],
       inheritedFunctions: {

@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { useAccount } from "wagmi";
+import { formatEther } from "viem";
+import { useAccount, useReadContract } from "wagmi";
+import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 const PerpetualTrading = () => {
   const [activeTab, setActiveTab] = useState("market");
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
-  const [collateralAmount, setCollateralAmount] = useState("");
+  const [collateralAmount, setCollateralAmount] = useState<number>();
   const [marketId, setMarketId] = useState("");
   const [margin, setMargin] = useState("");
   const [leverage, setLeverage] = useState("");
@@ -27,23 +29,33 @@ const PerpetualTrading = () => {
     // Add the ABI of the PerpetualTrading contract here
   ];
 
-  // useEffect(() => {
-  //   if (!provider) {
-  //     const newProvider = new ethers.providers.Web3Provider(window.ethereum);
-  //     setProvider(newProvider);
-  //     const newSigner = newProvider.getSigner();
-  //     setSigner(newSigner);
-  //     const newContract = new ethers.Contract(contractAddress, abi, newSigner);
-  //     setContract(newContract);
-  //   }
-  // }, [provider]);
+  const { writeContractAsync: tradingContract } = useScaffoldWriteContract({
+    contractName: "PerpetualTrading",
+  });
 
-  const depositCollateral = async () => {
-    if (!contract) return;
+  const { writeContractAsync: collateralContract } = useScaffoldWriteContract({
+    contractName: "HasMonCollateral",
+  });
 
-    const tx = await contract.depositCollateral(ethers.utils.parseUnits(collateralAmount, 18));
-    await tx.wait();
-    alert("Collateral deposited");
+  const { data: hasMonBalance } = useScaffoldReadContract({
+    contractName: "MonStaking",
+    functionName: "getHasMonBalance",
+    args: [address],
+    watch: true,
+  });
+
+  const depositCollateral = async (amount: number) => {
+    if (!collateralContract) return;
+
+    try {
+      await collateralContract({
+        functionName: "depositCollateral",
+        args: [ethers.parseUnits(amount.toString(), 18)],
+      });
+      alert("Collateral deposited");
+    } catch (error) {
+      console.error("Error depositing collateral:", error);
+    }
   };
 
   const openPosition = async () => {
@@ -111,16 +123,19 @@ const PerpetualTrading = () => {
               <input
                 type="text"
                 value={collateralAmount}
-                onChange={e => setCollateralAmount(e.target.value)}
+                onChange={e => setCollateralAmount(Number(e.target.value))}
                 className="input input-bordered w-full"
               />
-              <button onClick={depositCollateral} className="btn btn-primary mt-2">
+              <button onClick={() => depositCollateral(collateralAmount)} className="btn btn-primary mt-2">
                 Deposit Collateral
               </button>
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">Collateral Balance</label>
               <input type="text" value={collateralBalance} readOnly className="input input-bordered w-full" />
+            </div>
+            <div className="mb-4">
+              <p>HasMON Balance: {formatEther(hasMonBalance || 0n)} hasMON</p>
             </div>
           </div>
         )}

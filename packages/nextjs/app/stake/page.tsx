@@ -113,11 +113,13 @@ const StakingPage = () => {
                   functionName: "stake",
                   value: parseEther(amount || "0"),
                 });
+                setAmount("");
               } else {
                 await stakeContract({
                   functionName: "unstake",
                   args: [parseEther(amount || "0")],
                 });
+                setAmount("");
               }
             }}
             disabled={!isConnected || !amount}
