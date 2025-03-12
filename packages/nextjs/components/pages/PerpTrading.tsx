@@ -1,15 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { useState } from "react";
 import { formatEther } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 const PerpetualTrading = () => {
   const [activeTab, setActiveTab] = useState("market");
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [collateralAmount, setCollateralAmount] = useState<number>();
   const [marketId, setMarketId] = useState("");
@@ -50,7 +47,6 @@ const PerpetualTrading = () => {
     try {
       await collateralContract({
         functionName: "depositCollateral",
-        args: [ethers.parseUnits(amount.toString(), 18)],
       });
       alert("Collateral deposited");
     } catch (error) {
@@ -61,33 +57,18 @@ const PerpetualTrading = () => {
   const openPosition = async () => {
     if (!contract) return;
 
-    const tx = await contract.openPosition(
-      ethers.utils.formatBytes32String(marketId),
-      ethers.utils.parseUnits(margin, 18),
-      leverage,
-      isLong,
-      ethers.utils.parseUnits(price, 18),
-    );
-    await tx.wait();
     alert("Position opened");
   };
 
   const closePosition = async () => {
     if (!contract) return;
 
-    const tx = await contract.closePosition(
-      ethers.utils.formatBytes32String(marketId),
-      ethers.utils.parseUnits(price, 18),
-    );
-    await tx.wait();
     alert("Position closed");
   };
 
   const withdrawCollateral = async () => {
     if (!contract) return;
 
-    const tx = await contract.withdrawCollateral(ethers.utils.parseUnits(withdrawAmount, 18));
-    await tx.wait();
     alert("Collateral withdrawn");
   };
 

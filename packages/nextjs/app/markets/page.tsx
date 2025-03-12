@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { ethers } from "ethers";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 const MarketListPage = () => {
@@ -40,7 +39,6 @@ const MarketListPage = () => {
           <Link key={index} href={`/perps/${market.marketId}`}>
             <div className="card bg-base-200 shadow-lg cursor-pointer hover:bg-base-300">
               <div className="card-body">
-                <h2 className="card-title">{ethers.utils.parseBytes32String(market.marketId)}</h2>
                 <p>{market.baseToken}</p>
                 <p>Max Leverage: {market.maxLeverage}</p>
                 <p>Maintenance Margin: {market.maintenanceMargin}</p>
