@@ -1,0 +1,485 @@
+{
+  "address": "0xCF61E50879a5a9a5434F8f380e9b9FB2813a7C49",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_hasMonCollateral",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newFundingRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "FundingRateUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "Liquidated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "exitPrice",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "pnl",
+          "type": "int256"
+        }
+      ],
+      "name": "PositionClosed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "size",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "entryPrice",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isLong",
+          "type": "bool"
+        }
+      ],
+      "name": "PositionOpened",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "exitPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "closePosition",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "fundingRates",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "hasMonCollateral",
+      "outputs": [
+        {
+          "internalType": "contract IHasMonCollateral",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidationPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "liquidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "size",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "entryPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isLong",
+          "type": "bool"
+        }
+      ],
+      "name": "openPosition",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "positions",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "size",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "entryPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isLong",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "newFundingRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateFundingRate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xec429d6bbd003234ad16bae9977fb58f3fae2515d1e2932052abf459b3a290ed",
+  "receipt": {
+    "to": null,
+    "from": "0x5E729a4F664abf7045466f12039a513DE9572E17",
+    "contractAddress": "0xCF61E50879a5a9a5434F8f380e9b9FB2813a7C49",
+    "transactionIndex": 13,
+    "gasUsed": "515111",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000400000000000000000000200000000000000800000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000002000000020000000000000",
+    "blockHash": "0xe936669d9a3a8417b9a46e42659077dbf0d60ad3e19c47b849dd8a3d06516047",
+    "transactionHash": "0xec429d6bbd003234ad16bae9977fb58f3fae2515d1e2932052abf459b3a290ed",
+    "logs": [
+      {
+        "transactionIndex": 13,
+        "blockNumber": 6999716,
+        "transactionHash": "0xec429d6bbd003234ad16bae9977fb58f3fae2515d1e2932052abf459b3a290ed",
+        "address": "0xCF61E50879a5a9a5434F8f380e9b9FB2813a7C49",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x0000000000000000000000005e729a4f664abf7045466f12039a513de9572e17"
+        ],
+        "data": "0x",
+        "logIndex": 22,
+        "blockHash": "0xe936669d9a3a8417b9a46e42659077dbf0d60ad3e19c47b849dd8a3d06516047"
+      }
+    ],
+    "blockNumber": 6999716,
+    "cumulativeGasUsed": "2707453",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x68fE8Dec08447C6740159C9a9aca72f833a89c2B"
+  ],
+  "numDeployments": 6,
+  "solcInputHash": "77a2d7c5354854e5edf129d9ec9e643d",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_hasMonCollateral\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newFundingRate\",\"type\":\"uint256\"}],\"name\":\"FundingRateUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"Liquidated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exitPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"int256\",\"name\":\"pnl\",\"type\":\"int256\"}],\"name\":\"PositionClosed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isLong\",\"type\":\"bool\"}],\"name\":\"PositionOpened\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"exitPrice\",\"type\":\"uint256\"}],\"name\":\"closePosition\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"fundingRates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hasMonCollateral\",\"outputs\":[{\"internalType\":\"contract IHasMonCollateral\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"liquidationPrice\",\"type\":\"uint256\"}],\"name\":\"liquidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isLong\",\"type\":\"bool\"}],\"name\":\"openPosition\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"positions\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"entryPrice\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isLong\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"newFundingRate\",\"type\":\"uint256\"}],\"name\":\"updateFundingRate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}]},\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/perps/PerpEngine.sol\":\"PerpEngine\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"contracts/perps/PerpEngine.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n\\ninterface IHasMonCollateral {\\n    function collateralBalances(address user) external view returns (uint256);\\n}\\n\\ncontract PerpEngine is Ownable {\\n    struct Position {\\n        uint256 size;\\n        uint256 entryPrice;\\n        bool isLong;\\n    }\\n\\n    IHasMonCollateral public hasMonCollateral;\\n\\n    mapping(address => Position) public positions;\\n    mapping(address => uint256) public fundingRates;\\n\\n    event PositionOpened(address indexed user, uint256 size, uint256 entryPrice, bool isLong);\\n    event PositionClosed(address indexed user, uint256 exitPrice, int256 pnl);\\n    event Liquidated(address indexed user);\\n    event FundingRateUpdated(address indexed user, uint256 newFundingRate);\\n\\n    constructor(address _hasMonCollateral) Ownable(msg.sender) {\\n\\n        hasMonCollateral = IHasMonCollateral(_hasMonCollateral);\\n    }\\n\\n    function openPosition(uint256 size, uint256 entryPrice, bool isLong) external {\\n        require(hasMonCollateral.collateralBalances(msg.sender) >= size, \\\"Insufficient collateral\\\");\\n        positions[msg.sender] = Position(size, entryPrice, isLong);\\n        emit PositionOpened(msg.sender, size, entryPrice, isLong);\\n    }\\n\\n    function closePosition(uint256 exitPrice) external {\\n        Position memory position = positions[msg.sender];\\n        require(position.size > 0, \\\"No open position\\\");\\n\\n        int256 pnl = calculatePnL(position, exitPrice);\\n        delete positions[msg.sender];\\n\\n        emit PositionClosed(msg.sender, exitPrice, pnl);\\n    }\\n\\n    function liquidate(address user, uint256 liquidationPrice) external onlyOwner {\\n        Position memory position = positions[user];\\n        require(position.size > 0, \\\"No open position to liquidate\\\");\\n\\n        delete positions[user];\\n        emit Liquidated(user);\\n    }\\n\\n    function updateFundingRate(address user, uint256 newFundingRate) external onlyOwner {\\n        fundingRates[user] = newFundingRate;\\n        emit FundingRateUpdated(user, newFundingRate);\\n    }\\n\\n    function calculatePnL(Position memory position, uint256 exitPrice) internal pure returns (int256) {\\n        if (position.isLong) {\\n            return int256(position.size * (exitPrice - position.entryPrice));\\n        } else {\\n            return int256(position.size * (position.entryPrice - exitPrice));\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xd6b39ccf28c3df0c597165c999076cd6a705eb7dee4f10c4d8452a1543584e7f\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x6080346100c657601f61084338819003918201601f19168301916001600160401b038311848410176100cb578084926020946040528339810103126100c657516001600160a01b0390818116908190036100c65733156100ad5760005460018060a01b0319903382821617600055604051933391167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0600080a3600154161760015561076190816100e28239f35b604051631e4fbdf760e01b815260006004820152602490fd5b600080fd5b634e487b7160e01b600052604160045260246000fdfe6040608081526004908136101561001557600080fd5b600091823560e01c806313aca1d4146105da5780631558c9661461042f57806339335f1c146103f757806355f5751014610390578063715018a6146103335780638da5cb5b1461030b5780639cd7a34b146102de578063a126d60114610200578063bcbaf487146101185763f2fde38b1461008f57600080fd5b34610114576020366003190112610114576100a8610642565b906100b161065d565b6001600160a01b039182169283156100fe57505082546001600160a01b0319811683178455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b51631e4fbdf760e01b8152908101849052602490fd5b8280fd5b509034610114578060031936011261011457610132610642565b61013a61065d565b6001600160a01b03168084526002602052818420825191939161015c81610689565b8360ff6002845494858552600181015460208601520154161515910152156101be57506002839183835281602052822082815582600182015501557f1e1ef858062a7196d1891e397a5cde9891e6ddf61a81e9d269a3aaa7a95dacd88280a280f35b6020606492519162461bcd60e51b8352820152601d60248201527f4e6f206f70656e20706f736974696f6e20746f206c69717569646174650000006044820152fd5b509034610114576020806003193601126102da57823592338552600282528285209083519161022e83610689565b60ff6002825492838652600181015487870152015416151585840152156102a457509061027d847f03889ec414d60aad079a991887429a3a7acef381d59eef9ee26ec5cec26279ee94936106f1565b9033865260028152856002848220828155826001820155015582519485528401523392a280f35b835162461bcd60e51b8152908101839052601060248201526f27379037b832b7103837b9b4ba34b7b760811b6044820152606490fd5b8380fd5b50503461030757816003193601126103075760015490516001600160a01b039091168152602090f35b5080fd5b505034610307578160031936011261030757905490516001600160a01b039091168152602090f35b833461038d578060031936011261038d5761034c61065d565b80546001600160a01b03198116825581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b80fd5b505034610307576020366003190112610307579081906001600160a01b036103b6610642565b168152600260205220906103f382549160ff6002600186015495015416905193849384919260409194936060840195845260208401521515910152565b0390f35b5050346103075760203660031901126103075760209181906001600160a01b0361041f610642565b1681526003845220549051908152f35b508290346103075760603660031901126103075780359060243560443591821515908184036105d65760015487516329bc969d60e01b81523381840152602092918390829060249082906001600160a01b03165afa9081156105cc57908791899161056e575b501061052d5750956105279160027f6d360c86bc0761c2c22dc5412a31d3c8a1248ce1a3c3ae4b51c7ee36e003d5ae9697988351906104d382610689565b8982528281830191888352868401958652338d5252848b2091518255516001820155019051151560ff8019835416911617905551928392339684919260409194936060840195845260208401521515910152565b0390a280f35b60649188519162461bcd60e51b8352820152601760248201527f496e73756666696369656e7420636f6c6c61746572616c0000000000000000006044820152fd5b915050823d84116105c5575b601f8101601f1916820167ffffffffffffffff8111838210176105b257849183918c52810103126105ae578690518a610495565b8780fd5b634e487b7160e01b8a526041845260248afd5b503d61057a565b89513d8a823e3d90fd5b8580fd5b5050346103075780600319360112610307577fc60f2bd14c9aed8656958e0cff075765755f9cbf64452f0cdc6bd6ae2673b8586020610617610642565b6024359061062361065d565b6001600160a01b0316808652600383528486208290559351908152a280f35b600435906001600160a01b038216820361065857565b600080fd5b6000546001600160a01b0316330361067157565b60405163118cdaa760e01b8152336004820152602490fd5b6060810190811067ffffffffffffffff8211176106a557604052565b634e487b7160e01b600052604160045260246000fd5b919082039182116106c857565b634e487b7160e01b600052601160045260246000fd5b818102929181159184041417156106c857565b6040810151156107185761070f6107159260208351930151906106bb565b906106de565b90565b61070f61071592602083519301516106bb56fea2646970667358221220757184437619fea34a75c0a36899c9f04ca643506f4a8fd0dc69c7bf474cb97d64736f6c63430008140033",
+  "deployedBytecode": "0x6040608081526004908136101561001557600080fd5b600091823560e01c806313aca1d4146105da5780631558c9661461042f57806339335f1c146103f757806355f5751014610390578063715018a6146103335780638da5cb5b1461030b5780639cd7a34b146102de578063a126d60114610200578063bcbaf487146101185763f2fde38b1461008f57600080fd5b34610114576020366003190112610114576100a8610642565b906100b161065d565b6001600160a01b039182169283156100fe57505082546001600160a01b0319811683178455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08380a380f35b51631e4fbdf760e01b8152908101849052602490fd5b8280fd5b509034610114578060031936011261011457610132610642565b61013a61065d565b6001600160a01b03168084526002602052818420825191939161015c81610689565b8360ff6002845494858552600181015460208601520154161515910152156101be57506002839183835281602052822082815582600182015501557f1e1ef858062a7196d1891e397a5cde9891e6ddf61a81e9d269a3aaa7a95dacd88280a280f35b6020606492519162461bcd60e51b8352820152601d60248201527f4e6f206f70656e20706f736974696f6e20746f206c69717569646174650000006044820152fd5b509034610114576020806003193601126102da57823592338552600282528285209083519161022e83610689565b60ff6002825492838652600181015487870152015416151585840152156102a457509061027d847f03889ec414d60aad079a991887429a3a7acef381d59eef9ee26ec5cec26279ee94936106f1565b9033865260028152856002848220828155826001820155015582519485528401523392a280f35b835162461bcd60e51b8152908101839052601060248201526f27379037b832b7103837b9b4ba34b7b760811b6044820152606490fd5b8380fd5b50503461030757816003193601126103075760015490516001600160a01b039091168152602090f35b5080fd5b505034610307578160031936011261030757905490516001600160a01b039091168152602090f35b833461038d578060031936011261038d5761034c61065d565b80546001600160a01b03198116825581906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a380f35b80fd5b505034610307576020366003190112610307579081906001600160a01b036103b6610642565b168152600260205220906103f382549160ff6002600186015495015416905193849384919260409194936060840195845260208401521515910152565b0390f35b5050346103075760203660031901126103075760209181906001600160a01b0361041f610642565b1681526003845220549051908152f35b508290346103075760603660031901126103075780359060243560443591821515908184036105d65760015487516329bc969d60e01b81523381840152602092918390829060249082906001600160a01b03165afa9081156105cc57908791899161056e575b501061052d5750956105279160027f6d360c86bc0761c2c22dc5412a31d3c8a1248ce1a3c3ae4b51c7ee36e003d5ae9697988351906104d382610689565b8982528281830191888352868401958652338d5252848b2091518255516001820155019051151560ff8019835416911617905551928392339684919260409194936060840195845260208401521515910152565b0390a280f35b60649188519162461bcd60e51b8352820152601760248201527f496e73756666696369656e7420636f6c6c61746572616c0000000000000000006044820152fd5b915050823d84116105c5575b601f8101601f1916820167ffffffffffffffff8111838210176105b257849183918c52810103126105ae578690518a610495565b8780fd5b634e487b7160e01b8a526041845260248afd5b503d61057a565b89513d8a823e3d90fd5b8580fd5b5050346103075780600319360112610307577fc60f2bd14c9aed8656958e0cff075765755f9cbf64452f0cdc6bd6ae2673b8586020610617610642565b6024359061062361065d565b6001600160a01b0316808652600383528486208290559351908152a280f35b600435906001600160a01b038216820361065857565b600080fd5b6000546001600160a01b0316330361067157565b60405163118cdaa760e01b8152336004820152602490fd5b6060810190811067ffffffffffffffff8211176106a557604052565b634e487b7160e01b600052604160045260246000fd5b919082039182116106c857565b634e487b7160e01b600052601160045260246000fd5b818102929181159184041417156106c857565b6040810151156107185761070f6107159260208351930151906106bb565b906106de565b90565b61070f61071592602083519301516106bb56fea2646970667358221220757184437619fea34a75c0a36899c9f04ca643506f4a8fd0dc69c7bf474cb97d64736f6c63430008140033",
+  "devdoc": {
+    "errors": {
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 200,
+        "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+        "label": "hasMonCollateral",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(IHasMonCollateral)188"
+      },
+      {
+        "astId": 205,
+        "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+        "label": "positions",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_struct(Position)197_storage)"
+      },
+      {
+        "astId": 209,
+        "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+        "label": "fundingRates",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IHasMonCollateral)188": {
+        "encoding": "inplace",
+        "label": "contract IHasMonCollateral",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_struct(Position)197_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct PerpEngine.Position)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Position)197_storage"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(Position)197_storage": {
+        "encoding": "inplace",
+        "label": "struct PerpEngine.Position",
+        "members": [
+          {
+            "astId": 192,
+            "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+            "label": "size",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 194,
+            "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+            "label": "entryPrice",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 196,
+            "contract": "contracts/perps/PerpEngine.sol:PerpEngine",
+            "label": "isLong",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
