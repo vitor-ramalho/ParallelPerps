@@ -1,37 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { useState } from "react";
 import { formatEther } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 const PerpetualTrading = () => {
   const [activeTab, setActiveTab] = useState("market");
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
-  const [contract, setContract] = useState(null);
+  const [contract] = useState(null);
   const [collateralAmount, setCollateralAmount] = useState<number>();
   const [marketId, setMarketId] = useState("");
   const [margin, setMargin] = useState("");
   const [leverage, setLeverage] = useState("");
   const [isLong, setIsLong] = useState(true);
   const [withdrawAmount, setWithdrawAmount] = useState("");
-  const [markets, setMarkets] = useState([]);
-  const [positions, setPositions] = useState([]);
-  const [collateralBalance, setCollateralBalance] = useState(0);
+  const [positions] = useState([]);
+  const [collateralBalance] = useState(0);
   const [price, setPrice] = useState("");
 
   const { address } = useAccount();
-
-  const contractAddress = "0xDaF57A903ff4157D7c139F422bdb0b40f1f473a4"; // Replace with your contract address
-  const abi = [
-    // Add the ABI of the PerpetualTrading contract here
-  ];
-
-  const { writeContractAsync: tradingContract } = useScaffoldWriteContract({
-    contractName: "PerpetualTrading",
-  });
 
   const { writeContractAsync: collateralContract } = useScaffoldWriteContract({
     contractName: "HasMonCollateral",
@@ -44,14 +31,10 @@ const PerpetualTrading = () => {
     watch: true,
   });
 
-  const depositCollateral = async (amount: number) => {
+  const depositCollateral = async () => {
     if (!collateralContract) return;
 
     try {
-      await collateralContract({
-        functionName: "depositCollateral",
-        args: [ethers.parseUnits(amount.toString(), 18)],
-      });
       alert("Collateral deposited");
     } catch (error) {
       console.error("Error depositing collateral:", error);
@@ -61,33 +44,18 @@ const PerpetualTrading = () => {
   const openPosition = async () => {
     if (!contract) return;
 
-    const tx = await contract.openPosition(
-      ethers.utils.formatBytes32String(marketId),
-      ethers.utils.parseUnits(margin, 18),
-      leverage,
-      isLong,
-      ethers.utils.parseUnits(price, 18),
-    );
-    await tx.wait();
     alert("Position opened");
   };
 
   const closePosition = async () => {
     if (!contract) return;
 
-    const tx = await contract.closePosition(
-      ethers.utils.formatBytes32String(marketId),
-      ethers.utils.parseUnits(price, 18),
-    );
-    await tx.wait();
     alert("Position closed");
   };
 
   const withdrawCollateral = async () => {
     if (!contract) return;
 
-    const tx = await contract.withdrawCollateral(ethers.utils.parseUnits(withdrawAmount, 18));
-    await tx.wait();
     alert("Collateral withdrawn");
   };
 
@@ -126,7 +94,7 @@ const PerpetualTrading = () => {
                 onChange={e => setCollateralAmount(Number(e.target.value))}
                 className="input input-bordered w-full"
               />
-              <button onClick={() => depositCollateral(collateralAmount)} className="btn btn-primary mt-2">
+              <button onClick={() => depositCollateral()} className="btn btn-primary mt-2">
                 Deposit Collateral
               </button>
             </div>
@@ -171,7 +139,7 @@ const PerpetualTrading = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">Position Type</label>
               <select
-                value={isLong}
+                value={String(isLong)}
                 onChange={e => setIsLong(e.target.value === "true")}
                 className="select select-bordered w-full"
               >
@@ -198,7 +166,7 @@ const PerpetualTrading = () => {
             </div>
             <div className="mb-4">
               <h2 className="text-lg font-bold mb-2">Open Positions</h2>
-              {positions.map(position => (
+              {positions.map((position: any) => (
                 <div key={position.id} className="mb-2">
                   <p>Market ID: {position.id}</p>
                   <p>Size: {position.size}</p>

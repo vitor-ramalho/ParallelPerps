@@ -7,6 +7,7 @@ interface Toast {
 }
 
 export function useToast() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const show = (message: string, type: Toast["type"] = "info") => {
@@ -21,7 +22,7 @@ export function useToast() {
 }
 
 export function ToastContainer() {
-  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [toasts] = useState<Toast[]>([]);
 
   return (
     <div className="toast toast-end">

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { AdvancedRealTimeChart, TickerTape } from "react-ts-tradingview-widgets";
 import PerpetualTrading from "~~/components/pages/PerpTrading";
 
