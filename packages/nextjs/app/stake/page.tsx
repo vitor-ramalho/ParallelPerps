@@ -57,23 +57,19 @@ const StakingPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 gradient-box">
-      {/* Info Cards */}
       <div className="grid md:grid-cols-3 gap-6 mb-8">
-        {/* TVL Card */}
         <Card className="p-6 flex flex-col items-center justify-center text-center">
           <h3 className="text-lg font-medium text-base-content/60">TVL</h3>
           <p className="text-3xl font-bold my-2">{formatEther(totalStaked || 0n)} MON</p>
           <p className="text-sm text-base-content/60">Total MON in staking</p>
         </Card>
 
-        {/* APY Card */}
         <Card className="p-6 flex flex-col items-center justify-center text-center">
           <h3 className="text-lg font-medium text-base-content/60">Current APY</h3>
           <p className="text-3xl font-bold my-2">12%</p>
           <p className="text-sm text-base-content/60">Estimated APY</p>
         </Card>
 
-        {/* Exchange Ratio Card */}
         <Card className="p-6 flex flex-col items-center justify-center text-center">
           <h3 className="text-lg font-medium text-base-content/60">Exchange Ratio</h3>
           <p className="text-3xl font-bold my-2">1:1</p>
@@ -81,7 +77,6 @@ const StakingPage = () => {
         </Card>
       </div>
 
-      {/* Stake/Unstake Card */}
       <Card className="p-6 max-w-lg mx-auto">
         <div className="flex gap-2 mb-6">
           <Button onClick={() => setIsStaking(true)} className={`flex-1 ${isStaking ? "btn-primary" : "btn-ghost"}`}>
@@ -129,8 +124,7 @@ const StakingPage = () => {
           </Button>
 
           <div className="mt-4 text-sm space-y-1">
-            <p>Staked Balance: {formatEther(stakedBalance || 0n)} MON</p>
-            <p>HasMON Balance: {formatEther(hasMonBalance || 0n)} hasMON</p>
+            <p>hasMON Balance: {formatEther(hasMonBalance || 0n)}</p>
           </div>
         </div>
       </Card>
