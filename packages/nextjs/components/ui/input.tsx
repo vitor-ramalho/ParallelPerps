@@ -4,7 +4,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   showPercentages?: boolean;
 }
 
-export function Input({ className = "", maxValue, onPercentageClick, showPercentages = false, ...props }: InputProps) {
+export function Input({ className = "", onPercentageClick, showPercentages = false, ...props }: InputProps) {
   return (
     <div className="w-full space-y-2">
       {showPercentages && (

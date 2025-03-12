@@ -7,28 +7,18 @@ import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaf
 
 const PerpetualTrading = () => {
   const [activeTab, setActiveTab] = useState("market");
-  const [contract, setContract] = useState(null);
+  const [contract] = useState(null);
   const [collateralAmount, setCollateralAmount] = useState<number>();
   const [marketId, setMarketId] = useState("");
   const [margin, setMargin] = useState("");
   const [leverage, setLeverage] = useState("");
   const [isLong, setIsLong] = useState(true);
   const [withdrawAmount, setWithdrawAmount] = useState("");
-  const [markets, setMarkets] = useState([]);
-  const [positions, setPositions] = useState([]);
-  const [collateralBalance, setCollateralBalance] = useState(0);
+  const [positions] = useState([]);
+  const [collateralBalance] = useState(0);
   const [price, setPrice] = useState("");
 
   const { address } = useAccount();
-
-  const contractAddress = "0xDaF57A903ff4157D7c139F422bdb0b40f1f473a4"; // Replace with your contract address
-  const abi = [
-    // Add the ABI of the PerpetualTrading contract here
-  ];
-
-  const { writeContractAsync: tradingContract } = useScaffoldWriteContract({
-    contractName: "PerpetualTrading",
-  });
 
   const { writeContractAsync: collateralContract } = useScaffoldWriteContract({
     contractName: "HasMonCollateral",
@@ -41,13 +31,10 @@ const PerpetualTrading = () => {
     watch: true,
   });
 
-  const depositCollateral = async (amount: number) => {
+  const depositCollateral = async () => {
     if (!collateralContract) return;
 
     try {
-      await collateralContract({
-        functionName: "depositCollateral",
-      });
       alert("Collateral deposited");
     } catch (error) {
       console.error("Error depositing collateral:", error);
@@ -107,7 +94,7 @@ const PerpetualTrading = () => {
                 onChange={e => setCollateralAmount(Number(e.target.value))}
                 className="input input-bordered w-full"
               />
-              <button onClick={() => depositCollateral(collateralAmount)} className="btn btn-primary mt-2">
+              <button onClick={() => depositCollateral()} className="btn btn-primary mt-2">
                 Deposit Collateral
               </button>
             </div>
@@ -152,7 +139,7 @@ const PerpetualTrading = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">Position Type</label>
               <select
-                value={isLong}
+                value={String(isLong)}
                 onChange={e => setIsLong(e.target.value === "true")}
                 className="select select-bordered w-full"
               >
@@ -179,7 +166,7 @@ const PerpetualTrading = () => {
             </div>
             <div className="mb-4">
               <h2 className="text-lg font-bold mb-2">Open Positions</h2>
-              {positions.map(position => (
+              {positions.map((position: any) => (
                 <div key={position.id} className="mb-2">
                   <p>Market ID: {position.id}</p>
                   <p>Size: {position.size}</p>

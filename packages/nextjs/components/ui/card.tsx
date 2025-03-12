@@ -1,5 +1,3 @@
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Card({ className = "", ...props }: CardProps) {
+export function Card({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={`card bg-base-100 shadow-xl ${className}`} {...props} />;
 }

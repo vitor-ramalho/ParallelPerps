@@ -6,12 +6,11 @@ import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 const MarketListPage = () => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
 
   const { data: markets } = useScaffoldReadContract({
     contractName: "PerpetualTrading",
     functionName: "getAllMarkets",
-    args: [],
     watch: true,
   });
 
@@ -35,7 +34,7 @@ const MarketListPage = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">Select a Market</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {markets?.map((market, index) => (
+        {markets?.map((market: any, index: any) => (
           <Link key={index} href={`/perps/${market.marketId}`}>
             <div className="card bg-base-200 shadow-lg cursor-pointer hover:bg-base-300">
               <div className="card-body">
