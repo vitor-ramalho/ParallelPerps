@@ -34,28 +34,28 @@ module.exports = {
         },
       },
       {
-        dark: {
-          primary: "#846ff8", // monad purple
-          "primary-content": "#fefffe", // white
-          secondary: "#9f8dfe", // electric ice
-          "secondary-content": "#fefffe", // white
-          accent: "#a1055c", // berry
-          "accent-content": "#fefffe", // white
-          neutral: "#1e2936", // grey
-          "neutral-content": "#fefffe", // white
-          "base-100": "#200152", // monad dark blue
-          "base-200": "#3c1b85", // purple dark 50
-          "base-300": "#1a0f63", // blue dark 50
-          "base-content": "#fefffe", // white
-          info: "#a1c3ff", // info
-          success: "#2da67b", // success
-          warning: "#fbc657", // warning
-          error: "#f70e0e", // error
-          "--rounded-btn": "9999rem",
-          ".tooltip": { "--tooltip-tail": "6px", "--tooltip-color": "oklch(var(--p))" },
-          ".link": { textUnderlineOffset: "2px" },
-          ".link:hover": { opacity: "80%" },
-        },
+        // dark: {
+        //   primary: "#846ff8", // monad purple
+        //   "primary-content": "#fefffe", // white
+        //   secondary: "#9f8dfe", // electric ice
+        //   "secondary-content": "#fefffe", // white
+        //   accent: "#a1055c", // berry
+        //   "accent-content": "#fefffe", // white
+        //   neutral: "#1e2936", // grey
+        //   "neutral-content": "#fefffe", // white
+        //   "base-100": "#200152", // monad dark blue
+        //   "base-200": "#3c1b85", // purple dark 50
+        //   "base-300": "#1a0f63", // blue dark 50
+        //   "base-content": "#fefffe", // white
+        //   info: "#a1c3ff", // info
+        //   success: "#2da67b", // success
+        //   warning: "#fbc657", // warning
+        //   error: "#f70e0e", // error
+        //   "--rounded-btn": "9999rem",
+        //   ".tooltip": { "--tooltip-tail": "6px", "--tooltip-color": "oklch(var(--p))" },
+        //   ".link": { textUnderlineOffset: "2px" },
+        //   ".link:hover": { opacity: "80%" },
+        // },
       },
     ],
   },

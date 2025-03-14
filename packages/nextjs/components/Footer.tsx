@@ -61,7 +61,7 @@ export const Footer = () => {
             <p className="m-0 text-center">by </p>
             <div className="text-center">
               <a href="https://github.com/vitor-ramalho" target="_blank" rel="noreferrer" className="link">
-                Vitor Ramalho
+                Vitor
               </a>
             </div>
           </div>
